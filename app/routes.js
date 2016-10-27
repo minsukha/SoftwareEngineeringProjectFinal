@@ -19,6 +19,7 @@ module.exports = function(app, passport) {
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
 		User.find().lean().exec(function(err, members){
+		console.log(Object.keys(members[0]['userInfo']));
 		if(err)
 			throw err;
 		else
