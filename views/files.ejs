@@ -1,0 +1,17 @@
+<% var title = 'Files' %>
+<% var name = "" %>
+<% if(!user) { %>
+<% include header %>
+<% } else { %>
+<% var privilege = user.userInfo.privilege %>
+<% name = user.userInfo.firstName + " " + user.userInfo.lastName %>
+<% include header %>
+<% } %>
+
+<h1>Files Page</h1>
+<form action="uploadFile" method="post"><br>
+<input id="upload-input" type="file">
+<button type="submit" class="btn btn-default">Submit</button>
+</form>
+</body>
+</html>

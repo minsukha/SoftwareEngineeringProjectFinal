@@ -1,0 +1,13 @@
+<% var title = 'Admin Page' %>
+<% var name = "" %>
+<% if(!user) { %>
+<% include header %>
+<% } else { %>
+<% var privilege = user.userInfo.privilege %>
+<% name = user.userInfo.firstName  + " " + user.userInfo.lastName %>
+<% include header %>
+<% } %>
+
+<h1>Admin Page</h1>
+</body>
+</html>

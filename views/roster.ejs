@@ -1,0 +1,22 @@
+<% var title = 'Roster' %>
+<% var name = "" %>
+<% if(!user) { %>
+<% include header %>
+<% } else { %>
+<% var privilege = user.userInfo.privilege %>
+<% name = user.userInfo.firstName + " " + user.userInfo.lastName %>
+<% include header %>
+<% } %>
+<h1>Roster Page</h1>
+<table>
+<% for(var i=0; i < nameArray.length; i++) { %>
+   <tr>
+     <td><%= jerseyArray[i] %></td>
+     <td><%= nameArray[i] %></td>
+     <td><%= positionArray[i] %></td>
+   </tr>
+<% } %>
+</table>
+</p>
+</body>
+</html>
