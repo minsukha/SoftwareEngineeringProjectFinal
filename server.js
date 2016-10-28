@@ -32,6 +32,7 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); /
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(express.static(__dirname + '/public/images'));
+app.use(express.static(__dirname + '/public/styles'));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 

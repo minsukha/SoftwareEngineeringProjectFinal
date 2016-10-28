@@ -1,0 +1,16 @@
+html{
+  overflow: hidden;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+li{
+  display: inline-block;
+  list-style-type: none;
+  padding-right: 25px;
+}
