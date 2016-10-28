@@ -13,13 +13,13 @@ module.exports = function(app, passport) {
 	var nameArray = [];
 	var jerseyArray = [];
 	var positionArray = [];
+	var memberIdArray = [];
 	var announceMessage;
 	var announceName;
 	var announceDate;
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
 		User.find().lean().exec(function(err, members){
-		console.log(Object.keys(members[0]['userInfo']));
 		if(err)
 			throw err;
 		else
@@ -30,6 +30,7 @@ module.exports = function(app, passport) {
 				nameArray.push(name);
 				jerseyArray.push(members[i]['userInfo']['jerseyNumber']);
 				positionArray.push(members[i]['userInfo']['position']);
+				memberIdArray.push(members[i]['_id']);
 				}
 			}
 			else if(nameArray.length == members.length) {
@@ -38,6 +39,7 @@ module.exports = function(app, passport) {
 					nameArray[i] = name;
 					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
 					positionArray[i] = members[i]['userInfo']['position'];
+					memberIdArray[i] = members[i]['_id'];
 				}
 			}
 			else {
@@ -45,6 +47,7 @@ module.exports = function(app, passport) {
 				nameArray.push(name);
 				jerseyArray.push(members[members.length - 1]['userInfo']['jerseyNumber']);
 				positionArray.push(members[members.length - 1]['userInfo']['position']);
+				memberIdArray.push(members[members.length - 1]['_id']);
 			}
 	});
 	}
@@ -82,7 +85,7 @@ module.exports = function(app, passport) {
 	});
 	//renders all the pages and sends necessary data to be used by the pages
 	app.get('/roster', function(req, res) {
-		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray});
+		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, memberIdArray : memberIdArray});
 	});
 	app.get('/files', isLoggedIn, function(req, res) {
 		res.render('files.ejs', {user : req.user});
