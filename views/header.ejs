@@ -2,15 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <style type="text/css">
-      footer{
-        position: absolute;
-        bottom: 50px;
-        right: 0;
-        left: 0;
-        text-align: center;
-      }
-  </style>
+  <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
     <title><%= title %></title>
     <script src="/js/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -28,12 +20,6 @@
             Roster
         </a>
     <div class="right menu">
-        <div class="item">
-            <div class="ui icon input">
-                <input placeholder="Search..." type="text">
-                <i class="search link icon"></i>
-            </div>
-        </div>
         <a class="ui item" href="/signup">
             Sign Up
         </a>
@@ -42,11 +28,24 @@
         </a>
     </div>
 </div>
+<footer class="footer">
+    <div class="social-media">
+        <ul>
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" alt="Twitter"></a></li>  
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
 <% } else if(privilege === "admin") { %>
 <!DOCTYPE html>
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -73,12 +72,6 @@
             Admin
         </a>
     <div class="right menu">
-        <div class="item">
-            <div class="ui icon input">
-                <input placeholder="Search..." type="text">
-                <i class="search link icon"></i>
-            </div>
-        </div>
         <a class="ui item" href="/profile">
             <%= name %>
         </a>
@@ -87,11 +80,25 @@
         </a>
     </div>
 </div>
+<footer class="footer">
+    <div class="social-media">
+        <ul>
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" alt="Twitter"></a></li>  
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
+
 <% } else { %>
 <!DOCTYPE html>
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -115,12 +122,6 @@
             Playbook
         </a>
     <div class="right menu">
-        <div class="item">
-            <div class="ui icon input">
-                <input placeholder="Search..." type="text">
-                <i class="search link icon"></i>
-            </div>
-        </div>
         <a class="ui item" href="/profile">
             <%= name %>
         </a>
@@ -129,16 +130,17 @@
         </a>
     </div>
 </div>
-<% } %>
 <footer class="footer">
     <div class="social-media">
         <ul>
-            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src"" alt="Facebook"></a></li>
-            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank">Instagram</a></li>
-            <li><a href="https://twitter.com/GCRollerHockey" target="_blank"><img src="social-icons.jpg" alt="Twitter"></a></li>
-            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src"" alt="NCRHA PROFILE"></a></li>           
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" alt="Twitter"></a></li>  
         </ul>
     </div>
 </footer>
 </body>
 </html>
+
+<% } %>
