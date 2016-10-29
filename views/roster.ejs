@@ -12,40 +12,17 @@
 <th>  Jersey Number  </th>
 <th>  Name  </th>
 <th>  Position  </th>
+<th>Age</th>
+<th>Hometown</th>
 <% for(var i=0; i < nameArray.length; i++) { %>
    <tr>
      <td><%= jerseyArray[i] %></td>
-     <td><%= nameArray[i] %></td>
+     <td><form action="/getUserProfile" method="post"><input type="text" id="userId" name="userId" value="<%= memberIdArray[i] %>" hidden><a href="#" onclick="document.forms[0].submit();return false;"><%= nameArray[i] %></a></form></td>
      <td><%= positionArray[i] %></td>
-     <td><a href="#" data-toggle="modal" data-target="#myModal">Edit</a>
+     <td><%= ageArray[i] %></td>
+     <td><%= hometownArray[i] %></td>
    </tr>
-   <div class="modal fade" id="myModal" role="dialog">
-   	<div class="modal-dialog modal-sm">
-    
-    <div class="modal-content">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h4 class="modal-title">Edit Line Assignment</h4>
-    </div>
-    <form action="/updateLine" method="post">
-     <div class="form-group">
-        <label for="lineAssignment">Line Assignment</label>
-            <input type="text" class="form-control" id="lineAssignment" name="lineAssignment">
-     </div>
-     <div class="form-group">
-         <label for="lineAssignment">ID</label>
-         <input type="text" class="form-control" id="idNum" name="idNum" value="<%= memberIdArray[i] %>">
-     </div>
-     <div class="modal-footer">
-         <button type="submit" class="btn btn-default">Submit</button>
-         </form>
-         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
 <% } %>
 </table>
-</center>
 </body>
 </html>
