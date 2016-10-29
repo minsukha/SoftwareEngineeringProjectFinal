@@ -2,15 +2,76 @@ html{
   overflow: hidden;
 }
 
+body{
+	margin: 0;
+}
+
+th{
+	padding: 10px;
+}
+
+td{
+	padding: 10px;
+}
+
 footer{
   position: absolute;
   bottom: 0;
   width: 100%;
   text-align: center;
+  left: 0;
 }
 
 li{
   display: inline-block;
   list-style-type: none;
   padding-right: 25px;
+}
+
+.headertest{
+	padding: 15px;
+	background-color: #003366;
+	border-bottom: 7px solid #006633;
+}
+
+.container{
+		width: 30%;
+}
+
+.modal-content{
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid;
+	width: 100%;
+}
+
+.testlabel{
+	margin-right: 30px;
+}
+
+.ui.secondary.menu{
+	margin-top: 0;
+}
+
+.headertest > .ui.secondary.menu > a.item{
+	color: white;
+}
+
+.headertest > .ui.secondary.menu > a.item:hover{
+	color: #006633;
+	box-shadow: #003366;
+}
+
+.headertest > .ui.secondary.menu > .right.menu > a.ui.item{
+	color: white;
+}
+
+.headertest > .ui.secondary.menu > .right.menu > a.ui.item:hover{
+	color: #006633;
+	box-shadow: #003366;
+}
+
+.ui.threaded.comments{
+	padding: 100px;
 }

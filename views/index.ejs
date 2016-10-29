@@ -20,9 +20,9 @@
                     <span class="date"><%= announceDate %></span>
                 </div>
                     <% if(privilege == "admin") { %>
-                    <div class="container">
+                    <!--<div class="container">-->
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Announcement</button>
+                        <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Announcement</button></center>
 
                         <!-- Modal -->
                         <div class="modal fade" id="myModal" role="dialog">
@@ -36,13 +36,13 @@
                         </div>
                         <form action="/updateAnnouncement" method="post">
                         <div class="form-group">
-                            <textarea  class="text" cols="40" rows="5" id="announcement" name="announcement" placeholder="Enter text here..."></textarea>
+                            <textarea  class="text" cols="25" rows="5" id="announcement" name="announcement" placeholder="Enter text here..."></textarea>
                         </div>
                         <div class="modal-footer">
                         <button type="submit" class="btn btn-default">Submit</button>
                         </form>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+        <!--</div>-->
       </div>
       
     </div>
