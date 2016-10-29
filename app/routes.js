@@ -13,10 +13,14 @@ module.exports = function(app, passport) {
 	var nameArray = [];
 	var jerseyArray = [];
 	var positionArray = [];
+	var ageArray = [];
+	var hometownArray = [];
 	var memberIdArray = [];
 	var announceMessage;
 	var announceName;
 	var announceDate;
+	var userId;
+	var userProfile;
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
 		User.find().lean().exec(function(err, members){
@@ -30,6 +34,8 @@ module.exports = function(app, passport) {
 				nameArray.push(name);
 				jerseyArray.push(members[i]['userInfo']['jerseyNumber']);
 				positionArray.push(members[i]['userInfo']['position']);
+				ageArray.push(members[i]['userInfo']['age']);
+				hometownArray.push(members[i]['userInfo']['hometown']);
 				memberIdArray.push(members[i]['_id']);
 				}
 			}
@@ -39,6 +45,8 @@ module.exports = function(app, passport) {
 					nameArray[i] = name;
 					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
 					positionArray[i] = members[i]['userInfo']['position'];
+					ageArray[i] = members[i]['userInfo']['age'];
+					hometownArray[i] = members[i]['userInfo']['hometown'];
 					memberIdArray[i] = members[i]['_id'];
 				}
 			}
@@ -47,6 +55,8 @@ module.exports = function(app, passport) {
 				nameArray.push(name);
 				jerseyArray.push(members[members.length - 1]['userInfo']['jerseyNumber']);
 				positionArray.push(members[members.length - 1]['userInfo']['position']);
+				ageArray.push(members[members.length - 1]['userInfo']['age']);
+				hometownArray.push(members[members.length - 1]['userInfo']['hometown']);
 				memberIdArray.push(members[members.length - 1]['_id']);
 			}
 	});
@@ -85,17 +95,13 @@ module.exports = function(app, passport) {
 	});
 	//renders all the pages and sends necessary data to be used by the pages
 	app.get('/roster', function(req, res) {
-		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, memberIdArray : memberIdArray});
+		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, ageArray : ageArray, hometownArray : hometownArray, memberIdArray: memberIdArray});
 	});
 	app.get('/files', isLoggedIn, function(req, res) {
 		res.render('files.ejs', {user : req.user});
 	});
-
 	app.get('/playbook', isLoggedIn, function(req, res) {
 		res.render('playbook.ejs', {user : req.user});
-	});
-	app.get('/updateAnnouncement', isLoggedIn, function(req, res){
-		res.render('updateAnnouncement.ejs', {user : req.user});
 	});
 
 	app.post('/updateAnnouncement', function(req, res){
@@ -146,7 +152,7 @@ module.exports = function(app, passport) {
 
 	//load the profile page and check to ensure they are logged in
 	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {user : req.user});
+		res.render('profile.ejs', {user : req.user, userProfile : userProfile});
 	});
 	//update the user info in the database from the form on the user page
 	app.post('/updateProfile', function(req, res) {
@@ -170,10 +176,13 @@ module.exports = function(app, passport) {
 		});
 		res.redirect('/profile');
 	});
-	app.get('/updateProfile', function(req, res){
-		res.render('updateProfile.ejs', {user : req.user});
+	app.post('/getUserProfile', function(req, res) {
+		userId = req.body.userId;
+		User.findOne({'_id': userId}, function(err, user){
+			userProfile = user;
+		});
+		res.redirect('/profile');
 	});
-
 	//Logout
 	app.get('/logout', function(req, res) {
 		req.logout();
