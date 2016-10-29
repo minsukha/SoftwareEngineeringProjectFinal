@@ -51,6 +51,10 @@
           <h4 class="modal-title">Update Profile Information</h4>
         </div>
         <form action="/updateProfile" method="post">
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= user.userInfo.phoneNumber %>">
+        </div>
     	<div class="form-group">
             <label for="age">Age</label>
             <input type="number" class="form-control" id="age" name="age" value="<%= user.userInfo.age %>">
@@ -62,6 +66,7 @@
         <div class="form-group">
             <span class="testlabel"><label for="position">Position</label></span>
             <select id="position" name="position">
+              <option value="<%= user.userInfo.position %>"><%= user.userInfo.position %></option>
               <option value="Forward">Forward</option>
               <option value="Defense">Defense</option>
               <option value="Goalie">Goalie</option>

@@ -154,11 +154,16 @@ module.exports = function(app, passport) {
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('profile.ejs', {user : req.user, userProfile : userProfile});
 	});
+	app.get('/profile/:name', function(req, res){
+		
+	});
 	//update the user info in the database from the form on the user page
 	app.post('/updateProfile', function(req, res) {
 		User.findOne({'_id':req.user._id}, function(err, user) {
 			if(err)
 				throw err;
+
+			user.userInfo.phoneNumber = req.body.phoneNumber;
 			user.userInfo.age = req.body.age;
 			user.userInfo.jerseyNumber = req.body.jerseyNumber;
 			user.userInfo.position = req.body.position;
