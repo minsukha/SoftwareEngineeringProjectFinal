@@ -3,6 +3,7 @@
 <html>
   <head>
   <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
+  <link rel="stylesheet" type="text/css" href="headerfoot.css"> 
     <title><%= title %></title>
     <script src="/js/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -11,14 +12,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+  <div class="headertest">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css"><div class="ui secondary  menu">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+    <div class="ui secondary  menu">
         <a class="item" href="/">
             Home
         </a>
         <a class="item" href="/roster">
             Roster
         </a>
+        <img src="gcsulogo.png" alt="GCSU Logo" style="margin-left: 430px">
     <div class="right menu">
         <a class="ui item" href="/signup">
             Sign Up
@@ -29,15 +33,20 @@
     </div>
 </div>
 <footer class="footer">
+    <div class="container">
+    <div class="main-wrap">
     <div class="social-media">
         <ul>
-            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" alt="NCRHA Profile"></a></li> 
-            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" alt="Facebook"></a></li>
-            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" alt="Instagram"></a></li>
-            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" alt="Twitter"></a></li>  
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" height="33" width="33" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" height="33" width="33" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" height="33" width="33" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" height="33" width="33" alt="Twitter"></a></li>  
         </ul>
     </div>
+    </div>
+    </div>
 </footer>
+</div>
 </body>
 </html>
 <% } else if(privilege === "admin") { %>
@@ -46,6 +55,7 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
+    <link rel="stylesheet" type="text/css" href="headerfoot.css"> 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -54,8 +64,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+  <div class="headertest">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css"><div class="ui secondary  menu">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+    <div class="ui secondary  menu">
         <a class="item" href="/">
             Home
         </a>
@@ -71,6 +83,7 @@
         <a class="item" href="/Admin">
             Admin
         </a>
+        <img src="gcsulogo.png" alt="GCSU Logo" style="margin-left: 137px">
     <div class="right menu">
         <a class="ui item" href="/profile">
             <%= name %>
@@ -80,13 +93,14 @@
         </a>
     </div>
 </div>
+</div>
 <footer class="footer">
     <div class="social-media">
         <ul>
-            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" alt="NCRHA Profile"></a></li> 
-            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" alt="Facebook"></a></li>
-            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" alt="Instagram"></a></li>
-            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" alt="Twitter"></a></li>  
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" height="33" width="33" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" height="33" width="33" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" height="33" width="33" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" height="33" width="33" alt="Twitter"></a></li> 
         </ul>
     </div>
 </footer>
@@ -99,6 +113,7 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
+    <link rel="stylesheet" type="text/css" href="headerfoot.css"> 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -107,8 +122,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+  <div class="headertest">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css"><div class="ui secondary  menu">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+    <div class="ui secondary  menu">
         <a class="item" href="/">
             Home
         </a>
@@ -121,6 +138,7 @@
         <a class="item" href="/playbook">
             Playbook
         </a>
+        <img src="gcsulogo.png" alt="GCSU Logo" style="margin-left: 236px">
     <div class="right menu">
         <a class="ui item" href="/profile">
             <%= name %>
@@ -130,13 +148,14 @@
         </a>
     </div>
 </div>
+</div>
 <footer class="footer">
     <div class="social-media">
         <ul>
-            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" alt="NCRHA Profile"></a></li> 
-            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" alt="Facebook"></a></li>
-            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" alt="Instagram"></a></li>
-            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" alt="Twitter"></a></li>  
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" height="33" width="33" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" height="33" width="33" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" height="33" width="33" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" height="33" width="33" alt="Twitter"></a></li>  
         </ul>
     </div>
 </footer>
