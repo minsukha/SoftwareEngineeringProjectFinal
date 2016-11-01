@@ -92,6 +92,7 @@ module.exports = function(passport) {
                 newUser.userInfo.collegeYear = "";
                 newUser.userInfo.major = "";
                 newUser.userInfo.hometown = "";
+                newUser.userInfo.privilege = "nonmember";
                 newUser.userInfo.password = newUser.generateHash(password); // use the generateHash function in our user model
 
 				// save the user

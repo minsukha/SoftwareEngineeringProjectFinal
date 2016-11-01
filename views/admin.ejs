@@ -9,5 +9,20 @@
 <% } %>
 
 <h1>Admin Page</h1>
+<table border="1">
+<th>Name</th>
+<th>Email</th>
+<th>Privilege</th>
+<th>Delete User</th>
+<% for(var i=0; i < adminNameArray.length; i++) { %>
+   <tr>
+     <td><form action="/getUserProfile" method="post"><input type="text" id="userId"  name="userId" value="<%= adminMemberIdArray[i] %>" hidden><a id="<%= i %>" href="#" onclick="document.forms[this.id].submit();return false;"><%= adminNameArray[i] %></form></a></td>
+     <td><%= adminEmailArray[i] %></td>
+     <td><%= adminPrivilegeArray[i] %></td>
+     <td>Delete</td>
+   </tr>
+<% } %>
+</table>
+
 </body>
 </html>

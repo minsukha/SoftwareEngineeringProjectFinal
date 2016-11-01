@@ -15,13 +15,15 @@
 <th>Age</th>
 <th>Hometown</th>
 <% for(var i=0; i < nameArray.length; i++) { %>
+   <% if(privilegeArray[i] != "nonmember") { %>
    <tr>
      <td><%= jerseyArray[i] %></td>
-     <td><form action="/getUserProfile" method="post"><input type="text" id="userId" name="userId" value="<%= memberIdArray[i] %>" hidden><a id="<%= i %>" href="#" onclick="document.forms[this.id].submit();return false;"><%= nameArray[i] %></form></a></td>
+     <td><form action="/getUserProfile" method="post"><input type="text" id="userId"  name="userId" value="<%= memberIdArray[i] %>" hidden><a id="<%= i %>" href="#" onclick="document.forms[this.id].submit();return false;"><%= nameArray[i] %></form></a></td>
      <td><%= positionArray[i] %></td>
      <td><%= ageArray[i] %></td>
      <td><%= hometownArray[i] %></td>
    </tr>
+   <% } %>
 <% } %>
 </table>
 </body>

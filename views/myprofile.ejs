@@ -1,4 +1,4 @@
-<% var title = 'Profile' %>
+<% var title = 'My Profile' %>
 <% var name = "" %>
 <% if(!user) { %>
 <% include header %>
@@ -8,6 +8,7 @@
 <% include header %>
 <% } %>
 
+<% if(privilege != "nonmember") { %>
 <div class="container">
 
 	<div class="row">
@@ -102,3 +103,31 @@
 </div>
 </body>
 </html>
+<% } else { %>
+<h1>You must be approved by the admin in order to become a member of the site!</h1>
+<div class="container">
+
+  <div class="row">
+
+    <!-- LOCAL INFORMATION -->
+    <div class="col-sm-6">
+      <div class="well">
+        <h3><span class="fa fa-user"></span> Info</h3>
+
+          <p>
+            <strong>id</strong>: <%= user._id %><br>
+            <strong>Email</strong>: <%= user.userInfo.email %><br>
+            <strong>First name</strong>: <%= user.userInfo.firstName %><br>
+            <strong>Last name</strong>: <%= user.userInfo.lastName %><br>
+            <strong>Status</strong>: <%= user.userInfo.privilege %>
+          </p>
+
+      </div>
+    </div>
+
+  </div>
+  
+</div>
+</body>
+</html>
+<% } %>
