@@ -134,7 +134,7 @@ module.exports = function(app, passport) {
 
 	//process the login form and use passport to authenticate the user login
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/profile', //redirect to their profile page if login is successful
+		successRedirect : '/myprofile', //redirect to their profile page if login is successful
 		failureRedirect : '/login', //redirect back to the login page if unsuccessful
 		failureFlash : true
 	}));
@@ -145,20 +145,25 @@ module.exports = function(app, passport) {
 
 	//process the sign up form again using passport to authenticate information
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile', //if there are not errors on the sign up page redirect them to the profile page and have them logged in
+		successRedirect : '/myprofile', //if there are not errors on the sign up page redirect them to the profile page and have them logged in
 		failureRedirect : '/signup', //redirect back to the sign up page if their are any erros
 		failureFlash : true 
 	}));
 
 	//load the profile page and check to ensure they are logged in
-	app.get('/profile', isLoggedIn, function(req, res) {
+	app.get('/profile', function(req, res) {
 		res.render('profile.ejs', {user : req.user, userProfile : userProfile});
 	});
+	app.get('/myprofile', isLoggedIn, function(req, res) {
+		res.render('myprofile.ejs', {user : req.user});
+	})
 	//update the user info in the database from the form on the user page
 	app.post('/updateProfile', function(req, res) {
 		User.findOne({'_id':req.user._id}, function(err, user) {
 			if(err)
 				throw err;
+
+			user.userInfo.phoneNumber = req.body.phoneNumber;
 			user.userInfo.age = req.body.age;
 			user.userInfo.jerseyNumber = req.body.jerseyNumber;
 			user.userInfo.position = req.body.position;
@@ -174,14 +179,17 @@ module.exports = function(app, passport) {
 				updateRoster();
 			});
 		});
-		res.redirect('/profile');
+		res.redirect('/myprofile');
 	});
 	app.post('/getUserProfile', function(req, res) {
 		userId = req.body.userId;
 		User.findOne({'_id': userId}, function(err, user){
 			userProfile = user;
 		});
-		res.redirect('/profile');
+		if(userId == req.user._id)
+			res.redirect('myprofile');
+		else
+			res.redirect('/profile');
 	});
 	//Logout
 	app.get('/logout', function(req, res) {
