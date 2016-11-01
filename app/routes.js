@@ -22,6 +22,8 @@ module.exports = function(app, passport) {
 	var announceMessage;
 	var announceName;
 	var announceDate;
+	
+	//user id and user object for roster page
 	var userId;
 	var userProfile;
 	//arrays used to create the table on the admin page so member privilege can be updated or deleted from the database
@@ -29,6 +31,8 @@ module.exports = function(app, passport) {
 	var adminEmailArray = [];
 	var adminPrivilegeArray = [];
 	var adminMemberIdArray = [];
+	//user id  and user object for the admin page
+	var adminUserId;
 
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
@@ -49,8 +53,8 @@ module.exports = function(app, passport) {
 				privilegeArray.push(members[i]['userInfo']['privilege']);
 				}
 			}
-			else if(nameArray.length == members.length) {
-				for(var i = 0; i<nameArray.length; i++) {
+			else if(nameArray.length === members.length) {
+				for(var i = 0; i<members.length; i++) {
 					var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
 					nameArray[i] = name;
 					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
@@ -60,6 +64,25 @@ module.exports = function(app, passport) {
 					memberIdArray[i] = members[i]['_id'];
 					privilegeArray[i] = members[i]['userInfo']['privilege'];
 				}
+			}
+			else if(nameArray.length > members.length) {
+				for(var i = 0; i<members.length; i++) {
+					var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+					nameArray[i] = name;
+					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
+					positionArray[i] = members[i]['userInfo']['position'];
+					ageArray[i] = members[i]['userInfo']['age'];
+					hometownArray[i] = members[i]['userInfo']['hometown'];
+					memberIdArray[i] = members[i]['_id'];
+					privilegeArray[i] = members[i]['userInfo']['privilege'];
+				}
+				nameArray.pop();
+				jerseyArray.pop();
+				positionArray.pop();
+				ageArray.pop();
+				hometownArray.pop();
+				memberIdArray.pop();
+				privilegeArray.pop();
 			}
 			else {
 				var name = members[members.length - 1]['userInfo']['firstName'] + " " + members[members.length - 1]['userInfo']['lastName'];
@@ -98,6 +121,19 @@ module.exports = function(app, passport) {
 						adminMemberIdArray[i] = members[i]['_id'];
 					}
 				}
+				else if(adminNameArray.length > members.length) {
+					for(var i = 0; i<members.length; i++) {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						adminNameArray[i] = name;
+						adminEmailArray[i] = members[i]['userInfo']['email'];
+						adminPrivilegeArray[i] = members[i]['userInfo']['privilege'];
+						adminMemberIdArray[i] = members[i]['_id'];
+					}
+					adminNameArray.pop();
+					adminEmailArray.pop();
+					adminPrivilegeArray.pop();
+					adminMemberIdArray.pop();
+				}
 				else {
 					var name = members[members.length - 1]['userInfo']['firstName'] + " " + members[members.length - 1]['userInfo']['lastName'];
 					adminNameArray.push(name);
@@ -132,7 +168,7 @@ module.exports = function(app, passport) {
 	function isAdmin(req, res, next) {
 		if(!req.user)
 			res.redirect('/login');
-		if(req.user.userInfo.privilege != "admin")
+		if(req.user.userInfo.privilege != "Admin")
 			res.redirect('/');
 		else
 			return next();
@@ -239,6 +275,30 @@ module.exports = function(app, passport) {
 			res.redirect('myprofile');
 		else
 			res.redirect('/profile');
+	});
+	app.post('/changeUserPrivilege', function(req, res){
+		adminUserId = req.body.adminUserId;
+		User.findOne({'_id': adminUserId}, function(err, user){
+			user.userInfo.privilege = req.body.userPrivilege;
+
+			user.save(function(err){
+				if(err)
+					throw err;
+				updateAdminTable();
+				updateRoster();
+			});
+		});
+		res.redirect('/admin');
+	});
+	app.post('/deleteUser', function(req, res){
+		adminUserId = req.body.adminUserId;
+		User.remove({'_id':adminUserId}, function(err){
+			if(err)
+				throw err;
+		});
+		updateAdminTable();
+		updateRoster();
+		res.redirect('/admin');
 	});
 	//Logout
 	app.get('/logout', function(req, res) {
