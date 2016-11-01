@@ -1,58 +1,58 @@
 <% if(name == "") { %>
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
   <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
   <link rel="stylesheet" type="text/css" href="headerfoot.css"> 
-    <title><%= title %></title>
-    <script src="/js/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title><%= title %></title>
+  <script src="/js/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
-  <body>
+</head>
+<body>
   <div class="headertest">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
     <div class="ui secondary  menu">
-        <a class="item" href="/">
-            Home
-        </a>
-        <a class="item" href="/roster">
-            Roster
-        </a>
-        <img src="gcsulogo.png" alt="GCSU Logo" style="margin-left: 430px">
-    <div class="right menu">
-        <a class="ui item" href="/signup">
-            Sign Up
-        </a>
-        <a class="ui item" href="/login">
-            Log In
-        </a>
+        <img src="gcsulogo.png" alt="GCSU Logo">
+        <div class="right menu">
+            <a class="ui item" href="/">
+                Home
+            </a>
+            <a class="ui item" href="/roster">
+                Roster
+            </a>
+            <a class="ui item" href="/signup">
+                Sign Up
+            </a>
+            <a class="ui item" href="/login">
+                Log In
+            </a>
+        </div>
     </div>
-</div>
-<footer class="footer">
-    <div class="container">
-    <div class="main-wrap">
-    <div class="social-media">
-        <ul>
-            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" height="33" width="33" alt="NCRHA Profile"></a></li> 
-            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" height="33" width="33" alt="Facebook"></a></li>
-            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" height="33" width="33" alt="Instagram"></a></li>
-            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" height="33" width="33" alt="Twitter"></a></li>  
-        </ul>
-    </div>
-    </div>
-    </div>
-</footer>
+    <footer class="footer">
+        <div class="container">
+            <div class="main-wrap">
+                <div class="social-media">
+                    <ul>
+                        <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" height="33" width="33" alt="NCRHA Profile"></a></li> 
+                        <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" height="33" width="33" alt="Facebook"></a></li>
+                        <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" height="33" width="33" alt="Instagram"></a></li>
+                        <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" height="33" width="33" alt="Twitter"></a></li>   
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
 </body>
 </html>
 <% } else if(privilege === "admin") { %>
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
     <link rel="stylesheet" type="text/css" href="headerfoot.css"> 
@@ -60,39 +60,39 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
-  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
   <div class="headertest">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
     <div class="ui secondary  menu">
-        <a class="item" href="/">
-            Home
-        </a>
-        <a class="item" href="/roster">
-            Roster
-        </a>
-        <a class="item" href="/files">
-            Files
-        </a>
-        <a class="item" href="/playbook">
-            Playbook
-        </a>
-        <a class="item" href="/Admin">
-            Admin
-        </a>
-        <img src="gcsulogo.png" alt="GCSU Logo" style="margin-left: 137px">
-    <div class="right menu">
-        <a class="ui item" href="/myprofile">
-            <%= name %>
-        </a>
-        <a class="ui item" href="/logout">
-        Log out
-        </a>
+        <img src="gcsulogo.png" alt="GCSU Logo">
+        <div class="right menu">
+            <a class="ui item" href="/">
+                Home
+            </a>
+            <a class="ui item" href="/roster">
+                Roster
+            </a>
+            <a class="ui item" href="/files">
+                Files
+            </a>
+            <a class="ui item" href="/playbook">
+                Playbook
+            </a>
+            <a class="ui item" href="/Admin">
+                Admin
+            </a>
+            <a class="ui item" href="/profile">
+                <%= name %>
+            </a>
+            <a class="ui item" href="/logout">
+                Log out
+            </a>
+        </div>
     </div>
-</div>
 </div>
 <footer class="footer">
     <div class="social-media">
@@ -110,7 +110,7 @@
 <% } else { %>
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="minTFreshstyle.css">
     <link rel="stylesheet" type="text/css" href="headerfoot.css"> 
@@ -118,36 +118,36 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
-  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
   <div class="headertest">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
     <div class="ui secondary  menu">
-        <a class="item" href="/">
-            Home
-        </a>
-        <a class="item" href="/roster">
-            Roster
-        </a>
-        <a class="item" href="/files">
-            Files
-        </a>
-        <a class="item" href="/playbook">
-            Playbook
-        </a>
-        <img src="gcsulogo.png" alt="GCSU Logo" style="margin-left: 236px">
-    <div class="right menu">
-        <a class="ui item" href="/myprofile">
-            <%= name %>
-        </a>
-        <a class="ui item" href="/logout">
-        Log out
-        </a>
+        <img src="gcsulogo.png" alt="GCSU Logo">
+        <div class="right menu">
+            <a class="ui item" href="/">
+                Home
+            </a>
+            <a class="ui item" href="/roster">
+                Roster
+            </a>
+            <a class="ui item" href="/files">
+                Files
+            </a>
+            <a class="ui item" href="/playbook">
+                Playbook
+            </a>
+            <a class="ui item" href="/profile">
+                <%= name %>
+            </a>
+            <a class="ui item" href="/logout">
+                Log out
+            </a>
+        </div>
     </div>
-</div>
 </div>
 <footer class="footer">
     <div class="social-media">
