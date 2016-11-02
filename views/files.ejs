@@ -9,9 +9,10 @@
 <% } %>
 
 <h1>Files Page</h1>
-<form action="uploadFile" method="post"><br>
-<input id="upload-input" type="file">
-<button type="submit" class="btn btn-default">Submit</button>
-</form>
-</body>
+	<body>
+		<form method="post" enctype="multipart/form-data">
+			<input type="file" name="myimage" />
+			<input type="submit" name="submit" value="submit">
+		</form>
+	</body>
 </html>

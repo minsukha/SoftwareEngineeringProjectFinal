@@ -34,6 +34,9 @@ module.exports = function(app, passport) {
 	//user id  and user object for the admin page
 	var adminUserId;
 
+	var multer = require('multer');
+	var upload = multer({dest: 'public/files/'});
+
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
 		User.find().lean().exec(function(err, members){
@@ -306,4 +309,7 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
+	app.post('/files', upload.any(), function(req, res){
+		res.send(req.files);
+	})
 };
