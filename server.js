@@ -5,7 +5,6 @@
 var express  = require('express');
 var app      = express();
 var multer = require('multer');
-var upload = multer({dest: 'public/files/'});
 var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -18,6 +17,17 @@ var session      = require('express-session');
 
 var configDB = require('./config/database.js');
 
+var storage = multer.diskStorage({
+	destination: function(req, file, cb){
+		cb(null, 'public/files/')
+	},
+	filename: function(req, file, cb){
+		cb(null, file.originalname + '-' + Date.now())
+	}
+});
+
+var upload = multer({storage: storage});
+
 // configuration ===============================================================
 var db = mongoose.connect(configDB.url); // connect to our database
 
@@ -27,7 +37,6 @@ require('./config/passport')(passport); // pass passport for configuration
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
-//app.use(multer);
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
