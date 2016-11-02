@@ -9,5 +9,25 @@
 <% } %>
 
 <h1>Admin Page</h1>
+<table border="1">
+<th>Name</th>
+<th>Email</th>
+<th>Privilege</th>
+<th>Delete User</th>
+<% for(var i=0; i < adminNameArray.length; i++) { %>
+   <tr>
+     <td><form action="/getUserProfile" method="post"><input type="text" id="userId"  name="userId" value="<%= adminMemberIdArray[i] %>" hidden><a id="<%= i*3 %>" href="#" onclick="document.forms[this.id].submit();return false;"><%= adminNameArray[i] %></form></a></td>
+     <td><%= adminEmailArray[i] %></td>
+     <td><form action="/changeUserPrivilege" method="post"><input type="text" id="adminUserId" name="adminUserId" value="<%= adminMemberIdArray[i] %>" hidden><select id="userPrivilege" name="userPrivilege" onchange="this.form.submit()">
+              <option value="<%= adminPrivilegeArray[i] %>"><%= adminPrivilegeArray[i] %></option>
+              <option value="Admin">Admin</option>
+              <option value="Member">Member</option>
+              <option value="Officer">Officer</option>
+            </select></form></td>
+     <td><form action="/deleteUser" method="post"><input type="text" id="adminUserId" name="adminUserId" value="<%= adminMemberIdArray[i] %>" hidden><a id="<%= (i*3)+2 %>" href="#" onclick="document.forms[this.id].submit();return false;">Delete</a></form></td>
+   </tr>
+<% } %>
+</table>
+
 </body>
 </html>

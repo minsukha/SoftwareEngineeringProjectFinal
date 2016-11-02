@@ -9,18 +9,31 @@ module.exports = function(app, passport) {
 	app.get('/', function(req, res) {
 		res.render('index.ejs', { user : req.user, announceMessage : announceMessage, announceName : announceName, announceDate : announceDate});
 	});
-	//create a variable to store the json string of all members in the database
+
+	//Arrays used to create the table in the roster page of all the approved members
 	var nameArray = [];
 	var jerseyArray = [];
 	var positionArray = [];
 	var ageArray = [];
 	var hometownArray = [];
 	var memberIdArray = [];
+	var privilegeArray = [];
+	//variables used to update the announcements on the home page
 	var announceMessage;
 	var announceName;
 	var announceDate;
+	
+	//user id and user object for roster page
 	var userId;
 	var userProfile;
+	//arrays used to create the table on the admin page so member privilege can be updated or deleted from the database
+	var adminNameArray = [];
+	var adminEmailArray = [];
+	var adminPrivilegeArray = [];
+	var adminMemberIdArray = [];
+	//user id  and user object for the admin page
+	var adminUserId;
+
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
 		User.find().lean().exec(function(err, members){
@@ -37,10 +50,11 @@ module.exports = function(app, passport) {
 				ageArray.push(members[i]['userInfo']['age']);
 				hometownArray.push(members[i]['userInfo']['hometown']);
 				memberIdArray.push(members[i]['_id']);
+				privilegeArray.push(members[i]['userInfo']['privilege']);
 				}
 			}
-			else if(nameArray.length == members.length) {
-				for(var i = 0; i<nameArray.length; i++) {
+			else if(nameArray.length === members.length) {
+				for(var i = 0; i<members.length; i++) {
 					var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
 					nameArray[i] = name;
 					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
@@ -48,7 +62,27 @@ module.exports = function(app, passport) {
 					ageArray[i] = members[i]['userInfo']['age'];
 					hometownArray[i] = members[i]['userInfo']['hometown'];
 					memberIdArray[i] = members[i]['_id'];
+					privilegeArray[i] = members[i]['userInfo']['privilege'];
 				}
+			}
+			else if(nameArray.length > members.length) {
+				for(var i = 0; i<members.length; i++) {
+					var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+					nameArray[i] = name;
+					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
+					positionArray[i] = members[i]['userInfo']['position'];
+					ageArray[i] = members[i]['userInfo']['age'];
+					hometownArray[i] = members[i]['userInfo']['hometown'];
+					memberIdArray[i] = members[i]['_id'];
+					privilegeArray[i] = members[i]['userInfo']['privilege'];
+				}
+				nameArray.pop();
+				jerseyArray.pop();
+				positionArray.pop();
+				ageArray.pop();
+				hometownArray.pop();
+				memberIdArray.pop();
+				privilegeArray.pop();
 			}
 			else {
 				var name = members[members.length - 1]['userInfo']['firstName'] + " " + members[members.length - 1]['userInfo']['lastName'];
@@ -58,8 +92,58 @@ module.exports = function(app, passport) {
 				ageArray.push(members[members.length - 1]['userInfo']['age']);
 				hometownArray.push(members[members.length - 1]['userInfo']['hometown']);
 				memberIdArray.push(members[members.length - 1]['_id']);
+				privilegeArray.push(members[members.length -1]['userInfo']['privilege']);
 			}
 	});
+	}
+	//puts all the users in the database into arrays to be parsed out into a table on the admin page for admin use. The admin will be able to delete users and update their privilege settings/accept nonmembers
+	function updateAdminTable() {
+		User.find().lean().exec(function(err, members) {
+			if(err)
+				throw err;
+			else {
+				if(adminNameArray.length === 0)
+				{
+					for(var i = 0; i<members.length; i++) {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						adminNameArray.push(name);
+						adminEmailArray.push(members[i]['userInfo']['email']);
+						adminPrivilegeArray.push(members[i]['userInfo']['privilege']);
+						adminMemberIdArray.push(members[i]['_id']);
+					}
+				}
+				else if(adminNameArray.length === members.length) {
+					for(var i = 0; i<members.length; i++) {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						adminNameArray[i] = name;
+						adminEmailArray[i] = members[i]['userInfo']['email'];
+						adminPrivilegeArray[i] = members[i]['userInfo']['privilege'];
+						adminMemberIdArray[i] = members[i]['_id'];
+					}
+				}
+				else if(adminNameArray.length > members.length) {
+					for(var i = 0; i<members.length; i++) {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						adminNameArray[i] = name;
+						adminEmailArray[i] = members[i]['userInfo']['email'];
+						adminPrivilegeArray[i] = members[i]['userInfo']['privilege'];
+						adminMemberIdArray[i] = members[i]['_id'];
+					}
+					adminNameArray.pop();
+					adminEmailArray.pop();
+					adminPrivilegeArray.pop();
+					adminMemberIdArray.pop();
+				}
+				else {
+					var name = members[members.length - 1]['userInfo']['firstName'] + " " + members[members.length - 1]['userInfo']['lastName'];
+					adminNameArray.push(name);
+					adminEmailArray.push(members[members.length - 1]['userInfo']['email']);
+					adminPrivilegeArray.push(members[members.length - 1]['userInfo']['privilege']);
+					adminMemberIdArray.push(members[members.length - 1]['_id']);
+				}
+			}
+		});
+
 	}
 	function newAnnounce() {
 		Announcement.find().sort({_id : -1}).limit(1).exec(function(err, announcements){
@@ -84,18 +168,18 @@ module.exports = function(app, passport) {
 	function isAdmin(req, res, next) {
 		if(!req.user)
 			res.redirect('/login');
-		if(req.user.userInfo.privilege != "admin")
+		if(req.user.userInfo.privilege != "Admin")
 			res.redirect('/');
 		else
 			return next();
 	}
 	//render admin page. Checks user to ensure only admin can visit the page
 	app.get('/admin', isAdmin, function(req, res) {
-		res.render('admin.ejs', {user : req.user});
+		res.render('admin.ejs', {user : req.user, adminNameArray : adminNameArray, adminEmailArray : adminEmailArray, adminPrivilegeArray : adminPrivilegeArray, adminMemberIdArray : adminMemberIdArray});
 	});
 	//renders all the pages and sends necessary data to be used by the pages
 	app.get('/roster', function(req, res) {
-		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, ageArray : ageArray, hometownArray : hometownArray, memberIdArray: memberIdArray});
+		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, ageArray : ageArray, hometownArray : hometownArray, memberIdArray: memberIdArray, privilegeArray : privilegeArray});
 	});
 	app.get('/files', isLoggedIn, function(req, res) {
 		res.render('files.ejs', {user : req.user});
@@ -177,6 +261,7 @@ module.exports = function(app, passport) {
 					throw err;
 
 				updateRoster();
+				updateAdminTable();
 			});
 		});
 		res.redirect('/myprofile');
@@ -190,6 +275,30 @@ module.exports = function(app, passport) {
 			res.redirect('myprofile');
 		else
 			res.redirect('/profile');
+	});
+	app.post('/changeUserPrivilege', function(req, res){
+		adminUserId = req.body.adminUserId;
+		User.findOne({'_id': adminUserId}, function(err, user){
+			user.userInfo.privilege = req.body.userPrivilege;
+
+			user.save(function(err){
+				if(err)
+					throw err;
+				updateAdminTable();
+				updateRoster();
+			});
+		});
+		res.redirect('/admin');
+	});
+	app.post('/deleteUser', function(req, res){
+		adminUserId = req.body.adminUserId;
+		User.remove({'_id':adminUserId}, function(err){
+			if(err)
+				throw err;
+		});
+		updateAdminTable();
+		updateRoster();
+		res.redirect('/admin');
 	});
 	//Logout
 	app.get('/logout', function(req, res) {
