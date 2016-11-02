@@ -35,7 +35,16 @@ module.exports = function(app, passport) {
 	var adminUserId;
 
 	var multer = require('multer');
-	var upload = multer({dest: 'public/files/'});
+	var storage = multer.diskStorage({
+		destination: function(req, file, cb){
+			cb(null, 'public/files/')
+		},
+		filename: function(req, file, cb){
+			cb(null, file.originalname)
+		}
+	});
+
+	var upload = multer({storage: storage});
 
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
@@ -309,7 +318,8 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-	app.post('/files', upload.any(), function(req, res){
-		res.send(req.files);
+	app.post('/files', upload.any(), function(req, res, cb){
+		cb(null, 'public/files/')
+		res.redirect('/files')
 	})
 };
