@@ -322,4 +322,30 @@ module.exports = function(app, passport) {
 		cb(null, 'public/files/')
 		res.redirect('/files')
 	})
+
+	app.get('/download', function(req, res){
+       
+       
+        //get the filename from the request and look for it in the public folder
+        var file = 'public/files'+ req.body;
+
+        if(!fs.exist(file)){
+            return console.log('file not found');
+        }
+       
+
+        //set a filename variable for later
+        var filename = path.basename(file);
+
+        //get the type of file it is (for the resend header)
+        var mimetype= mime.lookup(file);
+
+        //set the return header
+        res.setHeader('Content-disposition','attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+
+        //send the file in a stream
+        var filestream = fs.createReadStream(file);
+        filestream.pipe(res); })
+
 };

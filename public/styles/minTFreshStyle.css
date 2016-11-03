@@ -77,3 +77,33 @@ li{
 .ui.threaded.comments{
 	padding: 100px;
 }
+
+
+
+/*			Carosels styling   */
+
+.carousel-control{
+	height: 100px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+#carousel.carousel.slide{
+	width:800px;
+ margin-right: auto;
+ margin-left: auto;
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+.carousel-inner{
+height: 600px;
+width:900px;
+}
+.carousel-inner .item img {
+
+height: 400px;
+width: 100%;
+align-items: center;
+
+
+}		
