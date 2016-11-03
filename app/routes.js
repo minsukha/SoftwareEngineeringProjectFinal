@@ -157,6 +157,11 @@ module.exports = function(app, passport) {
 		});
 
 	}
+	function updateAdminAndRoster(req, res, next) {
+		updateAdminTable();
+		updateRoster();
+		return next();
+	};
 	function newAnnounce() {
 		Announcement.find().sort({_id : -1}).limit(1).exec(function(err, announcements){
 		if(err)
@@ -186,11 +191,11 @@ module.exports = function(app, passport) {
 			return next();
 	}
 	//render admin page. Checks user to ensure only admin can visit the page
-	app.get('/admin', isAdmin, function(req, res) {
+	app.get('/admin', isAdmin, updateAdminAndRoster, function(req, res) {
 		res.render('admin.ejs', {user : req.user, adminNameArray : adminNameArray, adminEmailArray : adminEmailArray, adminPrivilegeArray : adminPrivilegeArray, adminMemberIdArray : adminMemberIdArray});
 	});
 	//renders all the pages and sends necessary data to be used by the pages
-	app.get('/roster', function(req, res) {
+	app.get('/roster', updateAdminAndRoster, function(req, res) {
 		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, ageArray : ageArray, hometownArray : hometownArray, memberIdArray: memberIdArray, privilegeArray : privilegeArray});
 	});
 	app.get('/files', isLoggedIn, function(req, res) {
@@ -283,6 +288,8 @@ module.exports = function(app, passport) {
 		User.findOne({'_id': userId}, function(err, user){
 			userProfile = user;
 		});
+		if(!req.user)
+			res.redirect('/profile');
 		if(userId == req.user._id)
 			res.redirect('myprofile');
 		else
