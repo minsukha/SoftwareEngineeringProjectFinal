@@ -5,6 +5,9 @@ module.exports = function(app, passport) {
 	var User = require('../app/models/user');
 
 	var Announcement = require('../app/models/announcement');
+
+	var GameStats = require('../app/models/gamestats');
+
 	//load the home screen and send user data to it
 	app.get('/', function(req, res) {
 		res.render('index.ejs', { user : req.user, announceMessage : announceMessage, announceName : announceName, announceDate : announceDate});
@@ -22,7 +25,13 @@ module.exports = function(app, passport) {
 	var announceMessage;
 	var announceName;
 	var announceDate;
-	
+
+	//variables for the gamestats page
+	var gameDateArray = [];
+	var gameFullStatsArray = [];
+	var gameOpponentArray = [];
+	var gameResultArray = [];
+	var gameStatsIdArray = [];
 	//user id and user object for roster page
 	var userId;
 	var userProfile;
@@ -45,6 +54,76 @@ module.exports = function(app, passport) {
 	});
 
 	var upload = multer({storage: storage});
+
+function updateGameStats() {
+		GameStats.find().lean().exec(function(err, gameStats) {
+			if(err)
+				throw err;
+			else {
+				if(gameDateArray.length === 0)
+				{
+					for(var i = 0; i<gameStats.length; i++) {
+						var date = gameStats[i]['gameStats']['date'];
+						var opponent = gameStats[i]['gameStats']['opponent'];
+						var result = gameStats[i]['gameStats']['result'];
+						var fullStats = gameStats[i]['gameStats']['fullStats'];
+						var id = gameStats[i]['_id'];
+						gameDateArray.push(date);
+						gameOpponentArray.push(opponent);
+						gameResultArray.push(result);
+						gameFullStatsArray.push(fullStats);
+						gameStatsIdArray.push(id);
+					}
+				}
+				else if(gameDateArray.length === gameStats.length) {
+					for(var i = 0; i<gameStats.length; i++) {
+						var date = gameStats[i]['gameStats']['date'];
+						var opponent = gameStats[i]['gameStats']['opponent'];
+						var result = gameStats[i]['gameStats']['result'];
+						var fullStats = gameStats[i]['gameStats']['fullStats'];
+						var id = gameStats[i]['_id'];
+						gameDateArray.push(date);
+						gameOpponentArray.push(opponent);
+						gameResultArray.push(result);
+						gameFullStatsArray.push(fullStats);
+						gameStatsIdArray.push(id);
+					}
+				}
+				else if(gameDateArray.length > gameStats.length) {
+					for(var i = 0; i<gameStats.length; i++) {
+						var date = gameStats[i]['gameStats']['date'];
+						var opponent = gameStats[i]['gameStats']['opponent'];
+						var result = gameStats[i]['gameStats']['result'];
+						var fullStats = gameStats[i]['gameStats']['fullStats'];
+						var id = gameStats[i]['_id'];
+						gameDateArray[i] = date;
+						gameOpponentArray[i] = opponent;
+						gameResultArray[i] = result;
+						gameFullStatsArray[i] = fullStats;
+						gameStatsIdArray[i] = id;
+					}
+					gameDateArray.pop();
+					gameOpponentArray.pop();
+					gameResultArray.pop();
+					gameFullStatsArray.pop();
+					gameStatsIdArray.pop();
+				}
+				else {
+					var date = gameStats[gameStats.length - 1]['gameStats']['date'];
+					var opponent = gameStats[gameStats.length - 1]['gameStats']['opponent'];
+					var result = gameStats[gameStats.length - 1]['gameStats']['result'];
+					var fullStats = gameStats[gameStats.length - 1]['gameStats']['fullStats'];
+					var id = gameStats[gameStats.length - 1]['_id'];
+					gameDateArray.push(date);
+					gameOpponentArray.push(opponent);
+					gameResultArray.push(result);
+					gameFullStatsArray.push(fullStats);
+					gameStatsIdArray.push(id);
+				}
+			}
+		});
+
+	}
 
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
@@ -258,6 +337,23 @@ module.exports = function(app, passport) {
 	app.get('/myprofile', isLoggedIn, function(req, res) {
 		res.render('myprofile.ejs', {user : req.user});
 	})
+	app.get('/gamestats', function(req, res) {
+		res.render('gamestats.ejs', {user : req.user, gameDateArray : gameDateArray, gameOpponentArray : gameOpponentArray, gameResultArray : gameResultArray, gameFullStatsArray : gameFullStatsArray, gameStatsIdArray : gameStatsIdArray});
+	});
+	app.post('/updateGameStats', function(req, res) {
+		var newGameStat = new GameStats();
+		newGameStat.gameStats.date = req.body.gameDate;
+		newGameStat.gameStats.opponent = req.body.gameOpponent;
+		newGameStat.gameStats.result = req.body.gameResult;
+		newGameStat.gameStats.fullStats = req.body.gameFullStats;
+
+		newGameStat.save(function(err){
+			if(err)
+				throw err;
+			updateGameStats();
+		});
+		res.redirect('/gamestats');
+	});
 	//update the user info in the database from the form on the user page
 	app.post('/updateProfile', function(req, res) {
 		User.findOne({'_id':req.user._id}, function(err, user) {
@@ -318,6 +414,14 @@ module.exports = function(app, passport) {
 		updateAdminTable();
 		updateRoster();
 		res.redirect('/admin');
+	});
+	app.post('/deleteGameStat', function(req, res){
+		GameStats.remove({'_id':req.body.gameStatsId}, function(err){
+			if(err)
+				throw err;
+		});
+		updateGameStats();
+		res.redirect('/gamestats');
 	});
 	//Logout
 	app.get('/logout', function(req, res) {
