@@ -40,6 +40,7 @@ module.exports = function(app, passport) {
 	var adminEmailArray = [];
 	var adminPrivilegeArray = [];
 	var adminMemberIdArray = [];
+	var adminAttendanceArray = [];
 	//user id  and user object for the admin page
 	var adminUserId;
 
@@ -134,38 +135,44 @@ function updateGameStats() {
 			if(nameArray.length == 0){
 				for(var i = 0; i<members.length; i++)
 				{
-				var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
-				nameArray.push(name);
-				jerseyArray.push(members[i]['userInfo']['jerseyNumber']);
-				positionArray.push(members[i]['userInfo']['position']);
-				ageArray.push(members[i]['userInfo']['age']);
-				hometownArray.push(members[i]['userInfo']['hometown']);
-				memberIdArray.push(members[i]['_id']);
-				privilegeArray.push(members[i]['userInfo']['privilege']);
+					if(members[i]['userInfo']['privilege'] != "Nonmember") {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						nameArray.push(name);
+						jerseyArray.push(members[i]['userInfo']['jerseyNumber']);
+						positionArray.push(members[i]['userInfo']['position']);
+						ageArray.push(members[i]['userInfo']['age']);
+						hometownArray.push(members[i]['userInfo']['hometown']);
+						memberIdArray.push(members[i]['_id']);
+						privilegeArray.push(members[i]['userInfo']['privilege']);
+					}
 				}
 			}
 			else if(nameArray.length === members.length) {
 				for(var i = 0; i<members.length; i++) {
-					var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
-					nameArray[i] = name;
-					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
-					positionArray[i] = members[i]['userInfo']['position'];
-					ageArray[i] = members[i]['userInfo']['age'];
-					hometownArray[i] = members[i]['userInfo']['hometown'];
-					memberIdArray[i] = members[i]['_id'];
-					privilegeArray[i] = members[i]['userInfo']['privilege'];
+					if(members[i]['userInfo']['privilege'] != "Nonmember") {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						nameArray[i] = name;
+						jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
+						positionArray[i] = members[i]['userInfo']['position'];
+						ageArray[i] = members[i]['userInfo']['age'];
+						hometownArray[i] = members[i]['userInfo']['hometown'];
+						memberIdArray[i] = members[i]['_id'];
+						privilegeArray[i] = members[i]['userInfo']['privilege'];
+					}
 				}
 			}
 			else if(nameArray.length > members.length) {
 				for(var i = 0; i<members.length; i++) {
-					var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
-					nameArray[i] = name;
-					jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
-					positionArray[i] = members[i]['userInfo']['position'];
-					ageArray[i] = members[i]['userInfo']['age'];
-					hometownArray[i] = members[i]['userInfo']['hometown'];
-					memberIdArray[i] = members[i]['_id'];
-					privilegeArray[i] = members[i]['userInfo']['privilege'];
+					if(members[i]['userInfo']['privilege'] != "Nonmember") {
+						var name = members[i]['userInfo']['firstName'] + " " + members[i]['userInfo']['lastName'];
+						nameArray[i] = name;
+						jerseyArray[i] = members[i]['userInfo']['jerseyNumber'];
+						positionArray[i] = members[i]['userInfo']['position'];
+						ageArray[i] = members[i]['userInfo']['age'];
+						hometownArray[i] = members[i]['userInfo']['hometown'];
+						memberIdArray[i] = members[i]['_id'];
+						privilegeArray[i] = members[i]['userInfo']['privilege'];
+					}
 				}
 				nameArray.pop();
 				jerseyArray.pop();
@@ -200,6 +207,7 @@ function updateGameStats() {
 						adminNameArray.push(name);
 						adminEmailArray.push(members[i]['userInfo']['email']);
 						adminPrivilegeArray.push(members[i]['userInfo']['privilege']);
+						adminAttendanceArray.push(members[i]['userInfo']['attendance']);
 						adminMemberIdArray.push(members[i]['_id']);
 					}
 				}
@@ -209,6 +217,7 @@ function updateGameStats() {
 						adminNameArray[i] = name;
 						adminEmailArray[i] = members[i]['userInfo']['email'];
 						adminPrivilegeArray[i] = members[i]['userInfo']['privilege'];
+						adminAttendanceArray[i] = members[i]['userInfo']['attendance'];
 						adminMemberIdArray[i] = members[i]['_id'];
 					}
 				}
@@ -218,11 +227,13 @@ function updateGameStats() {
 						adminNameArray[i] = name;
 						adminEmailArray[i] = members[i]['userInfo']['email'];
 						adminPrivilegeArray[i] = members[i]['userInfo']['privilege'];
+						adminAttendanceArray[i] = members[i]['userInfo']['attendance'];
 						adminMemberIdArray[i] = members[i]['_id'];
 					}
 					adminNameArray.pop();
 					adminEmailArray.pop();
 					adminPrivilegeArray.pop();
+					adminAttendanceArray.pop();
 					adminMemberIdArray.pop();
 				}
 				else {
@@ -230,6 +241,7 @@ function updateGameStats() {
 					adminNameArray.push(name);
 					adminEmailArray.push(members[members.length - 1]['userInfo']['email']);
 					adminPrivilegeArray.push(members[members.length - 1]['userInfo']['privilege']);
+					adminAttendanceArray.push(members[members.length - 1]['userInfo']['attendance']);
 					adminMemberIdArray.push(members[members.length - 1]['_id']);
 				}
 			}
@@ -271,7 +283,7 @@ function updateGameStats() {
 	}
 	//render admin page. Checks user to ensure only admin can visit the page
 	app.get('/admin', isAdmin, updateAdminAndRoster, function(req, res) {
-		res.render('admin.ejs', {user : req.user, adminNameArray : adminNameArray, adminEmailArray : adminEmailArray, adminPrivilegeArray : adminPrivilegeArray, adminMemberIdArray : adminMemberIdArray});
+		res.render('admin.ejs', {user : req.user, adminNameArray : adminNameArray, adminEmailArray : adminEmailArray, adminPrivilegeArray : adminPrivilegeArray, adminMemberIdArray : adminMemberIdArray, adminAttendanceArray : adminAttendanceArray});
 	});
 	//renders all the pages and sends necessary data to be used by the pages
 	app.get('/roster', updateAdminAndRoster, function(req, res) {
@@ -340,6 +352,49 @@ function updateGameStats() {
 	app.get('/gamestats', function(req, res) {
 		res.render('gamestats.ejs', {user : req.user, gameDateArray : gameDateArray, gameOpponentArray : gameOpponentArray, gameResultArray : gameResultArray, gameFullStatsArray : gameFullStatsArray, gameStatsIdArray : gameStatsIdArray});
 	});
+	app.post('/updateAttendance', function(req, res) {
+		var attendanceMemberIds = req.body.attendanceCheck;
+		if(attendanceMemberIds[attendanceMemberIds.length - 1] == "Reset") {
+			for(var i = 0; i<attendanceMemberIds.length - 1; i++) {
+				User.findOne({'_id':attendanceMemberIds[i]}, function(err, user){
+					user.userInfo.attendance = 0;
+					user.save(function(err){
+						if(err)
+							throw err;
+
+						updateAdminTable();
+					});
+				});
+			}
+		}
+		else {
+			if(attendanceMemberIds[0].length == 1) {
+				User.findOne({'_id':attendanceMemberIds}, function(err, user){
+					user.userInfo.attendance += 1;
+					user.save(function(err){
+						if(err)
+							throw err;
+
+						updateAdminTable();
+					});
+				});
+			}
+			else {
+				for(var i = 0; i<attendanceMemberIds.length; i++) {
+					User.findOne({'_id':attendanceMemberIds[i]}, function(err, user){
+						user.userInfo.attendance += 1;
+						user.save(function(err){
+							if(err)
+								throw err;
+
+							updateAdminTable();
+						});
+					});
+				}
+			}
+		}
+		res.redirect('/admin');
+	});
 	app.post('/updateGameStats', function(req, res) {
 		var newGameStat = new GameStats();
 		newGameStat.gameStats.date = req.body.gameDate;
@@ -387,7 +442,7 @@ function updateGameStats() {
 		if(!req.user)
 			res.redirect('/profile');
 		if(userId == req.user._id)
-			res.redirect('myprofile');
+			res.redirect('/myprofile');
 		else
 			res.redirect('/profile');
 	});
