@@ -8,54 +8,54 @@
 <% include header %>
 <% } %>
 <center><div class="ui threaded comments">
-        <h1 class="ui dividing header">Announcements</h1>
-        <div class="comment">
-            <div class="text">
-                <%= announceMessage %>
-            </div>
-            <div class="content">
-                <!-- <img src="./public/images/jacob.jpg" height="100" width="100"> -->
-                <a class="author"><%= announceName %></a>
-                <div class="metadata">
-                    <span class="date"><%= announceDate %></span>
-                </div>
-                    <% if(privilege == "Admin") { %>
-                    <!--<div class="container">-->
-                        <!-- Trigger the modal with a button -->
-                        <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Announcement</button></center>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog modal-sm">
-    
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                        <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">New Announcement</h4>
-                        </div>
-                        <form action="/updateAnnouncement" method="post">
-                        <div class="form-group">
-                            <textarea  class="text" cols="25" rows="5" id="announcement" name="announcement" placeholder="Enter text here..."></textarea>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                        
-        <!--</div>-->
+  <h1 class="ui dividing header">Announcements</h1>
+  <div class="comment">
+    <div class="text">
+      <%= announceMessage %>
+    </div>
+    <div class="content">
+      <a class="author"><%= announceName %></a>
+      <div class="metadata">
+        <span class="date"><%= announceDate %></span>
       </div>
-      
+      <% if(privilege == "Admin") { %>
+      <!--<div class="container">-->
+      <!-- Trigger the modal with a button -->
+      <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Announcement</button></center>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">New Announcement</h4>
+            </div>
+            <form action="/updateAnnouncement" method="post">
+              <div class="form-group">
+                <textarea  class="text" cols="25" rows="5" id="announcement" name="announcement" placeholder="Enter text here..."></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+              <!--</div>-->
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <% } %>
     </div>
   </div>
-  
-                </div>
-                <% } %>
-            </div>
-        </div>
-    </div>
-    
+</div>
+
+<center>
 <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -63,30 +63,29 @@
     <li data-target="#carousel" data-slide-to="1"></li>
     <li data-target="#carousel" data-slide-to="2"></li>
   </ol>
- 
+
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-  
     <div class="item active">
-      <img src="image1.jpg" alt="...">
-      <div class="carousel-caption">
-      	<h3>Caption Text</h3>
-      </div>
+      <img src="image1.png" alt="...">
     </div>
     <div class="item">
-      <img src="image2.jpg" alt="...">
-      <div class="carousel-caption">
-      	<h3>Caption Text</h3>
-      </div>
+      <img src="image2.png" alt="...">
     </div>
     <div class="item">
       <img src="image3.png" alt="...">
-      <div class="carousel-caption">
-      	<h3>Caption Text</h3>
-      </div>
+    </div>
+    <div class="item">
+      <img src="image4.png" alt="...">
+    </div>
+    <div class="item">
+      <img src="image5.png" alt="...">
+    </div>
+    <div class="item">
+      <img src="image6.png" alt="...">
     </div>
   </div>
- 
+
   <!-- Controls -->
   <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left"></span>
@@ -95,6 +94,6 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div> <!-- Carousel -->    
-
-    </center>
+</center>
+</center>
 

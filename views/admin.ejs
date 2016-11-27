@@ -7,8 +7,8 @@
 <% name = user.userInfo.firstName  + " " + user.userInfo.lastName %>
 <% include header %>
 <% } %>
-
-<h1>Admin Page</h1>
+<center><div class="ui threaded comments">
+<h1 class="ui dividing header">Admin Page</h1>
 <table border="1">
 <th>Name</th>
 <th>Email</th>
@@ -38,6 +38,7 @@
   }
 }
 </script>
+<br></br>
 <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Attendance</button></center>
 
   <div class="modal fade" id="myModal" role="dialog">
@@ -71,6 +72,6 @@
   </div>
   </div>
   </div>
-
+</div></center>
 </body>
 </html>
