@@ -1,5 +1,5 @@
 html{
-  overflow: hidden;
+	overflow: hidden;
 }
 
 body{
@@ -7,35 +7,52 @@ body{
 }
 
 th{
-	padding: 10px;
+	padding: 15px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	background-color: #003366;
+	color: white;
+}
+
+tr{
+	padding: 15px;
+	text-align: center;
 }
 
 td{
-	padding: 10px;
+	padding: 15px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
 }
 
+table{
+	border-spacing: 15px;
+	border-collapse: collapse;
+}
+
+
 footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  left: 0;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	left: 0;
 }
 
 li{
-  display: inline-block;
-  list-style-type: none;
-  padding-right: 25px;
+	display: inline-block;
+	list-style-type: none;
+	padding-right: 25px;
 }
 
 .headertest{
-	padding: 15px;
+	padding: 5px;
 	background-color: #003366;
 	border-bottom: 7px solid #006633;
 }
 
 .container{
-		width: 30%;
+	width: 30%;
 }
 
 .modal-content{
@@ -75,10 +92,8 @@ li{
 }
 
 .ui.threaded.comments{
-	padding: 100px;
+	padding: 30px;
 }
-
-
 
 /*			Carosels styling   */
 
@@ -90,28 +105,26 @@ li{
 
 #carousel.carousel.slide{
 	width:800px;
- margin-right: auto;
- margin-left: auto;
- margin-top: 10px;
- margin-bottom: 10px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 .carousel-inner{
-height: 600px;
-width:900px;
+	height: 100%;
+	width: 100%;
 }
 .carousel-inner .item img {
 
-height: 400px;
-width: 100%;
-align-items: center;
-
+	height: 100%;
+	width: 100%;
 }
 
 /*  Login form styling  */	
 
 .form-style {
-    width: 700px;
-    margin-top: 20px;
+	width: 700px;
+	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -120,7 +133,13 @@ align-items: center;
 	text-align: justify;
 	width: 400;
 }
+
 .userprofile img {
 	display: block;
 	margin: 0 auto;
+}
+
+.carousel {
+	max-height: 40%;
+	max-width: 40%;
 }
