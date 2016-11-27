@@ -48,14 +48,21 @@ module.exports = function(app, passport) {
 
 	//variables used for filesystem
 	var filez = [];
+	var fileUploadLocation = "files";
 
 	var multer = require('multer');
 	var storage = multer.diskStorage({
 		destination: function(req, file, cb){
-			cb(null, 'public/files/')
+			fileUploadLocation = req.body.location;
+			cb(null, 'public/'+fileUploadLocation+'/')
 		},
 		filename: function(req, file, cb){
-			cb(null, file.originalname)
+			if(fileUploadLocation == "myprofile") {
+				cb(null, req.user.userInfo.firstName + req.user.userInfo.lastName+'.png')
+			}
+			else {
+				cb(null, file.originalname)
+			}
 		}
 	});
 
@@ -64,7 +71,6 @@ module.exports = function(app, passport) {
 	function getFiles(req, res, next) {
 		var path = 'public/files/';
 		fs.readdir(path, function(err, docs) {
-			console.log(docs);
 			filez = docs;
 		});
 		return next();
@@ -504,11 +510,18 @@ function updateGameStats() {
 		res.redirect('/');
 	});
 
-	app.post('/files', upload.any(), function(req, res, cb){
-		cb(null, 'public/files/');
-		res.redirect('/files');
+	app.post('/fileUpload', upload.any(), function(req, res, cb){
+		fileUploadLocation = req.body.location;
+		cb(null, 'public/'+fileUploadLocation+'/');
+		res.redirect('/'+fileUploadLocation);
 	});
-
+	/*
+	app.post('/myprofile', upload.any(), function(req, res, cb){
+		cb(null, 'public/profiles/');
+		fileUploadLocation = "profiles";
+		res.redirect('/myprofile');
+	});
+	*/
 /*
 	app.get('/download', function(req, res){
        
