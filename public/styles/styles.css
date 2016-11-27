@@ -52,7 +52,15 @@ li{
 }
 
 .container{
-	width: 30%;
+	width: 75%;
+}
+
+.row{
+	text-align: center
+}
+
+.well{
+	text-align: center;
 }
 
 .modal-content{
