@@ -9,12 +9,11 @@
 <% } %>
 
 <% if(privilege != "Nonmember") { %>
+<center><div class="ui threaded comments">
+<h1 class="ui dividing header"></h1>
 <div class="container">
 
 	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
 			<div class="well">
 				<h3><span class="fa fa-user"></span> Info</h3>
 
@@ -34,12 +33,14 @@
 					</p>
 
 			</div>
-		</div>
 
-	</div><br>
+	</div>
+  </div>
+  </center>
+  <br>
 	<div class="container">
   <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit Profile</button>
+  <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit Profile</button></center>
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -104,13 +105,14 @@
 </body>
 </html>
 <% } else { %>
+
+<center><div class="ui threaded comments">
 <h1>You must be approved by the admin in order to become a member of the site!</h1>
 <div class="container">
 
   <div class="row">
 
     <!-- LOCAL INFORMATION -->
-    <div class="col-sm-6">
       <div class="well">
         <h3><span class="fa fa-user"></span> Info</h3>
 
@@ -125,9 +127,10 @@
       </div>
     </div>
 
-  </div>
+
   
 </div>
+</div></center>
 </body>
 </html>
 <% } %>
