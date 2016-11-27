@@ -116,4 +116,11 @@ align-items: center;
 	margin-right: auto;
 }
 
-	
+.userprofile {
+	text-align: justify;
+	width: 400;
+}
+.userprofile img {
+	display: block;
+	margin: 0 auto;
+}

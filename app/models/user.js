@@ -21,7 +21,8 @@ var userSchema = mongoose.Schema({
         age          : String,
         collegeYear  : String,
         major        : String,
-        hometown     : String
+        hometown     : String,
+        attendance   : Number
     }
 
 });

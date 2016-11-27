@@ -13,6 +13,7 @@
 <th>Name</th>
 <th>Email</th>
 <th>Privilege</th>
+<th>Attendance</th>
 <th>Delete User</th>
 <% for(var i=0; i < adminNameArray.length; i++) { %>
    <tr>
@@ -24,10 +25,52 @@
               <option value="Member">Member</option>
               <option value="Officer">Officer</option>
             </select></form></td>
+     <td><%= adminAttendanceArray[i] %></td>
      <td><form action="/deleteUser" method="post"><input type="text" id="adminUserId" name="adminUserId" value="<%= adminMemberIdArray[i] %>" hidden><a id="<%= (i*3)+2 %>" href="#" onclick="document.forms[this.id].submit();return false;">Delete</a></form></td>
    </tr>
 <% } %>
 </table>
+<script language="JavaScript">
+  function toggle(source) {
+  checkboxes = document.getElementsByName('attendanceCheck');
+  for(var i=0, n=checkboxes.length - 1;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+</script>
+<center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Attendance</button></center>
+
+  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    
+  
+  <div class="modal-content">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <center><h4 class="modal-title">Update Attendance</h4></center>
+  </div>
+  <form action="/updateAttendance" method="post">
+  <div class="form-group">
+    <center><table border="1">
+    <th>Name</th>
+    <th>Select All <input type="checkbox" onClick="toggle(this)"></th>
+    <% for(var j = 0; j < adminNameArray.length; j++) { %>
+      <tr>
+        <td><%= adminNameArray[j] %></td>
+        <td><input type="checkbox" id="attendanceCheck" name="attendanceCheck" value="<%= adminMemberIdArray[j] %>"></td>
+      </tr>
+      <% } %>
+      <td><strong>Reset Attendance</strong></td>
+      <td><input type="checkbox" name="attendanceCheck" value="Reset" onClick="toggle(this)"></td>
+    </table></center>
+  </div>
+  <div class="modal-footer">
+  <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
 
 </body>
 </html>

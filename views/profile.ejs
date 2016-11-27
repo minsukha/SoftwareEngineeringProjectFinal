@@ -7,21 +7,19 @@
 <% name = user.userInfo.firstName  + " " + user.userInfo.lastName %>
 <% include header %>
 <% } %>
-
+<center>
 <div class="container">
 
 	<div class="row">
 
-		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-6">
 			<div class="well">
-				<h3><span class="fa fa-user"></span> Info</h3>
-
 					<p>
-						<strong>id</strong>: <%= userProfile['_id'] %><br>
+						<div class="userprofile">
+						<img src="nouser.jpg" alt="Default Picture" width="50%" height="50%"><br>
+						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+						</div>
 						<strong>Email</strong>: <%= userProfile['userInfo']['email'] %><br>
-						<strong>First name</strong>: <%= userProfile['userInfo']['firstName'] %><br>
-						<strong>Last name</strong>: <%= userProfile['userInfo']['lastName'] %><br>
                         <strong>Age</strong>: <%= userProfile['userInfo']['age'] %><br>
                         <strong>Jersey Number</strong>: <%= userProfile['userInfo']['jerseyNumber'] %><br>
                         <strong>Position</strong>: <%= userProfile['userInfo']['position'] %><br>
@@ -37,5 +35,6 @@
 	</div><br>
 </div>
 </div>
+</center>
 </body>
 </html>
