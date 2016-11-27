@@ -8,6 +8,8 @@ module.exports = function(app, passport) {
 
 	var GameStats = require('../app/models/gamestats');
 
+	var fs = require('fs');
+
 	//load the home screen and send user data to it
 	app.get('/', function(req, res) {
 		res.render('index.ejs', { user : req.user, announceMessage : announceMessage, announceName : announceName, announceDate : announceDate});
@@ -44,6 +46,9 @@ module.exports = function(app, passport) {
 	//user id  and user object for the admin page
 	var adminUserId;
 
+	//variables used for filesystem
+	var filez = [];
+
 	var multer = require('multer');
 	var storage = multer.diskStorage({
 		destination: function(req, file, cb){
@@ -55,6 +60,20 @@ module.exports = function(app, passport) {
 	});
 
 	var upload = multer({storage: storage});
+
+	function getFiles(req, res, next) {
+		var path = 'public/files/';
+		fs.readdir(path, function(err, docs) {
+			console.log(docs);
+			filez = docs;
+		});
+		return next();
+	}
+	app.get('/files/:file(*)', function(req, res, next){
+		var file = req.params.file;
+		var path = 'public/files/' + file;
+		res.download(path);
+	});
 
 function updateGameStats() {
 		GameStats.find().lean().exec(function(err, gameStats) {
@@ -253,6 +272,7 @@ function updateGameStats() {
 		updateRoster();
 		return next();
 	};
+	//get latest announcement from the database and set it to the variables for the index page
 	function newAnnounce() {
 		Announcement.find().sort({_id : -1}).limit(1).exec(function(err, announcements){
 		if(err)
@@ -289,8 +309,8 @@ function updateGameStats() {
 	app.get('/roster', updateAdminAndRoster, function(req, res) {
 		res.render('roster.ejs', {user : req.user, nameArray: nameArray, jerseyArray: jerseyArray, positionArray: positionArray, ageArray : ageArray, hometownArray : hometownArray, memberIdArray: memberIdArray, privilegeArray : privilegeArray});
 	});
-	app.get('/files', isLoggedIn, function(req, res) {
-		res.render('files.ejs', {user : req.user});
+	app.get('/files', isLoggedIn, getFiles, function(req, res) {
+		res.render('files.ejs', {user : req.user, files : filez});
 	});
 	app.get('/playbook', isLoggedIn, function(req, res) {
 		res.render('playbook.ejs', {user : req.user});
@@ -485,10 +505,11 @@ function updateGameStats() {
 	});
 
 	app.post('/files', upload.any(), function(req, res, cb){
-		cb(null, 'public/files/')
-		res.redirect('/files')
-	})
+		cb(null, 'public/files/');
+		res.redirect('/files');
+	});
 
+/*
 	app.get('/download', function(req, res){
        
        
@@ -512,6 +533,6 @@ function updateGameStats() {
 
         //send the file in a stream
         var filestream = fs.createReadStream(file);
-        filestream.pipe(res); })
-
+        filestream.pipe(res); });
+*/
 };

@@ -7,7 +7,7 @@
 <% name = user.userInfo.firstName  + " " + user.userInfo.lastName %>
 <% include header %>
 <% } %>
-<center>
+<% if(!user) { %>
 <div class="container">
 
 	<div class="row">
@@ -19,6 +19,36 @@
 						<img src="nouser.jpg" alt="Default Picture" width="50%" height="50%"><br>
 						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
 						</div>
+                        <strong>Age</strong>: <%= userProfile['userInfo']['age'] %><br>
+                        <strong>Jersey Number</strong>: <%= userProfile['userInfo']['jerseyNumber'] %><br>
+                        <strong>Position</strong>: <%= userProfile['userInfo']['position'] %><br>
+                        <strong>Year in college</strong>: <%= userProfile['userInfo']['collegeYear'] %><br>
+                        <strong>Major</strong>: <%= userProfile['userInfo']['major'] %><br>
+                        <strong>Hometown</strong> <%= userProfile['userInfo']['hometown'] %>
+
+					</p>
+
+			</div>
+		</div>
+
+	</div><br>
+</div>
+</div>
+</body>
+</html>
+<% } else { %>
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-sm-6">
+			<div class="well">
+					<p>
+						<div class="userprofile">
+						<img src="nouser.jpg" alt="Default Picture" width="50%" height="50%"><br>
+						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+						</div>
+						<strong>Phone Number</strong>: <%= userProfile['userInfo']['phoneNumber'] %><br>
 						<strong>Email</strong>: <%= userProfile['userInfo']['email'] %><br>
                         <strong>Age</strong>: <%= userProfile['userInfo']['age'] %><br>
                         <strong>Jersey Number</strong>: <%= userProfile['userInfo']['jerseyNumber'] %><br>
@@ -35,6 +65,6 @@
 	</div><br>
 </div>
 </div>
-</center>
 </body>
 </html>
+<% } %>
