@@ -9,17 +9,20 @@
 <% } %>
 <center><div class="ui threaded comments">
 <h1 class="ui dividing header">Files Page</h1>
-	<body>
+<% if(privilege == "Admin" || privilege == "Officer") { %>
 		<form action="/fileUpload" method="post" enctype="multipart/form-data">
 			<input type="text" name="location" value="files" hidden>
 			<input type="file" name="myfile" />
 			<input type="submit" name="submit" value="submit">
 		</form>
+<% } %>
 		<table class="table-hover" border="1">
 		<th>Documents</th>
+		<th>Delete Document</th>
 		<% for(var i =0; i< files.length; i++) { %>
 		<tr>
 		<td><a href="/files/<%= files[i] %>"><%= files[i] %></a></td>
+		<td><a href="#">Delete</a></td>
 		</tr>
 		<% } %>
 		</table>

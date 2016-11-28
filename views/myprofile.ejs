@@ -17,20 +17,12 @@
 			<div class="well">
 
 					<p>
-            <% try { %>
             <div class="userprofile">
-            <img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Default Picture" width="50%" height="50%"><br>
+            <img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
             <p><h2><strong><center><%= name %></center></strong></h2></p>
             </div>
-            <% } catch(err) { %>
-            <div class="userprofile">
-            <img src="nouser.jpg" alt="Default Picture" width="50%" height="50%"><br>
-            <p><h2><strong><center><%= name %></center></strong></h2></p>
-            </div>
-            <% } %>
 						<strong>id</strong>: <%= user._id %><br>
 						<strong>Email</strong>: <%= user.userInfo.email %><br>
-						<strong>Password</strong>: <%= user.userInfo.password %><br>
 						<strong>First name</strong>: <%= user.userInfo.firstName %><br>
 						<strong>Last name</strong>: <%= user.userInfo.lastName %><br>
             <strong>Age</strong>: <%= user.userInfo.age %><br>
@@ -133,7 +125,6 @@
         <h3><span class="fa fa-user"></span> Info</h3>
 
           <p>
-            <strong>id</strong>: <%= user._id %><br>
             <strong>Email</strong>: <%= user.userInfo.email %><br>
             <strong>First name</strong>: <%= user.userInfo.firstName %><br>
             <strong>Last name</strong>: <%= user.userInfo.lastName %><br>

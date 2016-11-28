@@ -45,6 +45,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(express.static(__dirname + '/public/images'));
 app.use(express.static(__dirname + '/public/styles'));
 app.use(express.static(__dirname + '/public/myprofile'));
+app.use(express.static(__dirname + '/public/playbook'));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 

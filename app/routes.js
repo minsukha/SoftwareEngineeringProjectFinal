@@ -47,6 +47,7 @@ module.exports = function(app, passport) {
 	var adminUserId;
 
 	//variables used for filesystem
+	var playFiles = [];
 	var filez = [];
 	var fileUploadLocation = "files";
 
@@ -72,6 +73,13 @@ module.exports = function(app, passport) {
 		var path = 'public/files/';
 		fs.readdir(path, function(err, docs) {
 			filez = docs;
+		});
+		return next();
+	}
+	function getPlays(req, res, next) {
+		var path = 'public/playbook/';
+		fs.readdir(path, function(err, plays){
+			playFiles = plays;
 		});
 		return next();
 	}
@@ -300,12 +308,15 @@ function updateGameStats() {
 	};
 	//function to check if the user is an admin. If they are not it redirects them to the home page
 	function isAdmin(req, res, next) {
-		if(!req.user)
+		if(!req.user) {
 			res.redirect('/login');
-		if(req.user.userInfo.privilege != "Admin")
+		}
+		else if(req.user.userInfo.privilege != "Admin") {
 			res.redirect('/');
-		else
+		}
+		else {
 			return next();
+		}
 	}
 	//render admin page. Checks user to ensure only admin can visit the page
 	app.get('/admin', isAdmin, updateAdminAndRoster, function(req, res) {
@@ -318,8 +329,8 @@ function updateGameStats() {
 	app.get('/files', isLoggedIn, getFiles, function(req, res) {
 		res.render('files.ejs', {user : req.user, files : filez});
 	});
-	app.get('/playbook', isLoggedIn, function(req, res) {
-		res.render('playbook.ejs', {user : req.user});
+	app.get('/playbook', isLoggedIn, getPlays, function(req, res) {
+		res.render('playbook.ejs', {user : req.user, playFiles : playFiles});
 	});
 
 	app.post('/updateAnnouncement', function(req, res){
@@ -465,12 +476,15 @@ function updateGameStats() {
 		User.findOne({'_id': userId}, function(err, user){
 			userProfile = user;
 		});
-		if(!req.user)
+		if(!req.user){
 			res.redirect('/profile');
-		if(userId == req.user._id)
+		}
+		else if(userId == req.user._id){
 			res.redirect('/myprofile');
-		else
+		}
+		else {
 			res.redirect('/profile');
+		}
 	});
 	app.post('/changeUserPrivilege', function(req, res){
 		adminUserId = req.body.adminUserId;

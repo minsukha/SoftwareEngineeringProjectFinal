@@ -17,10 +17,17 @@
 
 			<div class="well">
 					<p>
+						<% try { %>
 						<div class="userprofile">
-						<img src="nouser.jpg" alt="Default Picture" width="50%" height="50%"><br>
+						<img src="<%= userProfile['userInfo']['firstName'] + userProfile['userInfo']['lastName']+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
 						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
 						</div>
+						<% } catch(err) { %>
+						<div class="userprofile">
+						<img src="nouser.jgp" alt="Profile Picture" width="50%" height="50%"><br>
+						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+						</div>
+						<% } %>
                         <strong>Age</strong>: <%= userProfile['userInfo']['age'] %><br>
                         <strong>Jersey Number</strong>: <%= userProfile['userInfo']['jerseyNumber'] %><br>
                         <strong>Position</strong>: <%= userProfile['userInfo']['position'] %><br>
@@ -49,7 +56,7 @@
 			<div class="well">
 					<p>
 						<div class="userprofile">
-						<img src="nouser.jpg" alt="Default Picture" width="50%" height="50%"><br>
+						<img src="<%= userProfile['userInfo']['firstName'] + userProfile['userInfo']['lastName']+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
 						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
 						</div>
 						<strong>Phone Number</strong>: <%= userProfile['userInfo']['phoneNumber'] %><br>
