@@ -8,6 +8,16 @@
 <% include header %>
 <% } %>
 
-<h1>Playbook Page</h1>
-</body>
+<center><div class="ui threaded comments">
+<h1 class="ui dividing header">Playbook Page</h1>
+<% if(privilege == "Admin" || privilege == "Officer") { %>
+		<form action="/fileUpload" method="post" enctype="multipart/form-data">
+			<input type="text" name="location" value="playbook" hidden>
+			<input type="file" name="myfile" />
+			<input type="submit" name="submit" value="submit">
+		</form>
+<% } %>
+		<img src="<%= playFiles[0] %>" width="100%" height="100%">
+		<img src="<%= playFiles[1] %>" width="100%" height="100%">
+	</body>
 </html>

@@ -15,22 +15,30 @@
 
 	<div class="row">
 			<div class="well">
-				<h3><span class="fa fa-user"></span> Info</h3>
 
 					<p>
+            <div class="userprofile">
+            <img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
+            <p><h2><strong><center><%= name %></center></strong></h2></p>
+            </div>
 						<strong>id</strong>: <%= user._id %><br>
 						<strong>Email</strong>: <%= user.userInfo.email %><br>
-						<strong>Password</strong>: <%= user.userInfo.password %><br>
 						<strong>First name</strong>: <%= user.userInfo.firstName %><br>
 						<strong>Last name</strong>: <%= user.userInfo.lastName %><br>
-                        <strong>Age</strong>: <%= user.userInfo.age %><br>
-                        <strong>Jersey Number</strong>: <%= user.userInfo.jerseyNumber %><br>
-                        <strong>Position</strong>: <%= user.userInfo.position %><br>
-                        <strong>Year in college</strong>: <%= user.userInfo.collegeYear %><br>
-                        <strong>Major</strong>: <%= user.userInfo.major %><br>
-                        <strong>Hometown</strong> <%= user.userInfo.hometown %>
+            <strong>Age</strong>: <%= user.userInfo.age %><br>
+            <strong>Jersey Number</strong>: <%= user.userInfo.jerseyNumber %><br>
+            <strong>Position</strong>: <%= user.userInfo.position %><br>
+            <strong>Year in college</strong>: <%= user.userInfo.collegeYear %><br>
+            <strong>Major</strong>: <%= user.userInfo.major %><br>
+            <strong>Hometown</strong> <%= user.userInfo.hometown %>
 
 					</p>
+          <body>
+          <form action="/fileUpload" method="post" enctype="multipart/form-data">
+            <input type="text" name="location" value="myprofile" hidden>
+            <input type="file" name="myimage" />
+            <input type="submit" name="submit" value="submit">
+          </form>
 
 			</div>
 
@@ -117,7 +125,6 @@
         <h3><span class="fa fa-user"></span> Info</h3>
 
           <p>
-            <strong>id</strong>: <%= user._id %><br>
             <strong>Email</strong>: <%= user.userInfo.email %><br>
             <strong>First name</strong>: <%= user.userInfo.firstName %><br>
             <strong>Last name</strong>: <%= user.userInfo.lastName %><br>
