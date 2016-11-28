@@ -9,7 +9,7 @@
 <% } %>
 <center><div class="ui threaded comments">
 <h1 class="ui dividing header">Admin Page</h1>
-<table border="1">
+<table class="table-hover">
 <th>Name</th>
 <th>Email</th>
 <th>Privilege</th>
@@ -52,7 +52,7 @@
   </div>
   <form action="/updateAttendance" method="post">
   <div class="form-group">
-    <center><table border="1">
+    <center><table class="table-hover">
     <th>Name</th>
     <th>Select All <input type="checkbox" onClick="toggle(this)"></th>
     <% for(var j = 0; j < adminNameArray.length; j++) { %>
