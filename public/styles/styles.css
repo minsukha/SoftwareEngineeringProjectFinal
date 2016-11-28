@@ -151,3 +151,12 @@ li{
 	max-height: 40%;
 	max-width: 40%;
 }
+
+.btn.btn-info.btn-lg {
+	background-color: #003366;
+	color: white;
+}
+
+.testcontrol {
+	margin: 0 auto;
+}
