@@ -9,7 +9,6 @@
 <% } %>
 <center><div class="ui threaded comments">
 <h1 class="ui dividing header">Files Page</h1>
-<br></br>
 <% if(privilege == "Admin" || privilege == "Officer") { %>
 		<form action="/fileUpload" method="post" enctype="multipart/form-data">
 			<input type="text" name="location" value="files" hidden>
@@ -17,7 +16,6 @@
 			<br></br>
 			<input type="submit" class="btn btn-info btn-lg" name="submit" value="Submit File">
 		</form>
-<% } %>
 		<br></br>
 		<table class="table-hover" border="1">
 		<th>Documents</th>
@@ -33,3 +31,17 @@
 		</center>
 	</body>
 </html>
+<% } else { %>
+<table class="table-hover" border="1">
+		<th>Documents</th>
+		<% for(var i =0; i< files.length; i++) { %>
+		<tr>
+		<td><a href="/files/<%= files[i] %>"><%= files[i] %></a></td>
+		</tr>
+		<% } %>
+		</table>
+		</div>
+		</center>
+	</body>
+</html>
+<% } %>

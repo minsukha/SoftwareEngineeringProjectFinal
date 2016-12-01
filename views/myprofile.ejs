@@ -18,10 +18,9 @@
 
 					<p>
             <div class="userprofile">
-            <img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
+            <img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="30%" height="30%"><br>
             <p><h2><strong><center><%= name %></center></strong></h2></p>
             </div>
-						<strong>id</strong>: <%= user._id %><br>
 						<strong>Email</strong>: <%= user.userInfo.email %><br>
 						<strong>First name</strong>: <%= user.userInfo.firstName %><br>
 						<strong>Last name</strong>: <%= user.userInfo.lastName %><br>
@@ -40,14 +39,7 @@
             <br></br>
             <input type="submit" class="btn btn-info btn-lg" name="submit" value="Submit Profile Image">
           </form>
-
-			</div>
-
-	</div>
-  </div>
-  </center>
-  <br>
-	<div class="container">
+          <div class="container">
   <!-- Trigger the modal with a button -->
   <center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit Profile</button></center>
 
@@ -66,7 +58,7 @@
             <label for="phoneNumber">Phone Number</label>
             <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= user.userInfo.phoneNumber %>">
         </div>
-    	  <div class="form-group">
+        <div class="form-group">
             <label for="age">Age</label>
             <input type="number" class="form-control" id="age" name="age" value="<%= user.userInfo.age %>">
         </div>
@@ -95,13 +87,9 @@
             <label for="hometown">Hometown</label>
             <input type="text" class="form-control" id="hometown" name="hometown" value="<%= user.userInfo.hometown %>">
         </div>
-        <div class="form-group">
-            <label for="privilege">privilege</label>
-            <input type="text" class="form-control" id="privilege" name="privilege">
-        </div>
         <div class="modal-footer">
          <button type="submit" class="btn btn-default">Submit</button>
-    	 </form>
+       </form>
          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -111,6 +99,12 @@
   
 </div>
 </div>
+			</div>
+
+	</div>
+  </div>
+  </center>
+	
 </body>
 </html>
 <% } else { %>
