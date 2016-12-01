@@ -17,10 +17,17 @@
 			<div class="well">
 
 					<p>
+            <% if(user.userInfo.defaultPic == 0) { %>
+            <div class="userprofile">
+            <img src="nouser.jpg" alt="Profile Picture" width="30%" height="30%"><br>
+            <p><h2><strong><center><%= name %></center></strong></h2></p>
+            </div>
+            <% } else { %>
             <div class="userprofile">
             <img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="30%" height="30%"><br>
             <p><h2><strong><center><%= name %></center></strong></h2></p>
             </div>
+            <% } %>
 						<strong>Email</strong>: <%= user.userInfo.email %><br>
 						<strong>First name</strong>: <%= user.userInfo.firstName %><br>
 						<strong>Last name</strong>: <%= user.userInfo.lastName %><br>

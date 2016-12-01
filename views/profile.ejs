@@ -8,6 +8,14 @@
 <% include header %>
 <% } %>
 <% if(!user) { %>
+<script type="text/javascript">
+	window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
+</script>
 <center><div class="ui threaded comments">
 <h1 class="ui dividing header"></h1>
 <div class="container">

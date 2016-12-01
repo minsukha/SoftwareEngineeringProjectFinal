@@ -22,7 +22,8 @@ var userSchema = mongoose.Schema({
         collegeYear  : String,
         major        : String,
         hometown     : String,
-        attendance   : Number
+        attendance   : Number,
+        defaultPic   : Number
     }
 
 });

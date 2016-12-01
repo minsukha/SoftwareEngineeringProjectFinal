@@ -88,7 +88,6 @@ module.exports = function(app, passport) {
 		var path = 'public/files/' + file;
 		res.download(path);
 	});
-
 function updateGameStats() {
 		GameStats.find().lean().exec(function(err, gameStats) {
 			if(err)
@@ -459,7 +458,6 @@ function updateGameStats() {
 			user.userInfo.collegeYear = req.body.collegeYear;
 			user.userInfo.major = req.body.major;
 			user.userInfo.hometown = req.body.hometown;
-			user.userInfo.privilege = req.body.privilege;
 
 			user.save(function(err) {
 				if(err)
@@ -526,40 +524,22 @@ function updateGameStats() {
 
 	app.post('/fileUpload', upload.any(), function(req, res, cb){
 		fileUploadLocation = req.body.location;
+		User.findOne({'_id':req.user._id}, function(err, user) {
+			user.userInfo.defaultPic = 1;
+
+			user.save(function(err){
+				if(err)
+					throw err;
+			});
+		});
 		cb(null, 'public/'+fileUploadLocation+'/');
 		res.redirect('/'+fileUploadLocation);
 	});
+
 	/*
-	app.post('/myprofile', upload.any(), function(req, res, cb){
-		cb(null, 'public/profiles/');
-		fileUploadLocation = "profiles";
-		res.redirect('/myprofile');
+	app.post('/deleteFile', function(req, res){
+		fs.unlinkSync('./public/files/'+req.body.delete);
+		res.redirect('/files');
 	});
 	*/
-/*
-	app.get('/download', function(req, res){
-       
-       
-        //get the filename from the request and look for it in the public folder
-        var file = 'public/files'+ req.body;
-
-        if(!fs.exist(file)){
-            return console.log('file not found');
-        }
-       
-
-        //set a filename variable for later
-        var filename = path.basename(file);
-
-        //get the type of file it is (for the resend header)
-        var mimetype= mime.lookup(file);
-
-        //set the return header
-        res.setHeader('Content-disposition','attachment; filename=' + filename);
-        res.setHeader('Content-type', mimetype);
-
-        //send the file in a stream
-        var filestream = fs.createReadStream(file);
-        filestream.pipe(res); });
-*/
 };
