@@ -186,7 +186,7 @@ function updateReceipt() {
 						receiptIdArray.push(id);
 					}
 				}
-				else if(gameDateArray.length === gameStats.length) {
+				else if(receiptDateArray.length === receipt.length) {
 					for(var i = 0; i<gameStats.length; i++) {
 						var date = receipt[i]['receipt']['date'];
 						var source = receipt[i]['receipt']['source'];
@@ -200,7 +200,7 @@ function updateReceipt() {
 						receiptIdArray.push(id);
 					}
 				}
-				else if(gameDateArray.length > gameStats.length) {
+				else if(receiptDateArray.length > receipt.length) {
 					for(var i = 0; i<gameStats.length; i++) {
 						var date = receipt[i]['receipt']['date'];
 						var source = receipt[i]['receipt']['source'];
@@ -360,8 +360,6 @@ function updateReceipt() {
 	function updateAdminAndRoster(req, res, next) {
 		updateAdminTable();
 		updateRoster();
-		updateGameStats();
-		updateReceipt();
 		return next();
 	};
 	//get latest announcement from the database and set it to the variables for the index page
@@ -419,7 +417,7 @@ function updateReceipt() {
 	app.get('/files', isLoggedIn, getFiles, function(req, res) {
 		res.render('files.ejs', {user : req.user, files : filez});
 	});
-	app.get('/receipt', isOfficer, updateAdminAndRoster, function(req, res) {
+	app.get('/receipt', isOfficer, function(req, res) {
 		res.render('receipt.ejs', {user : req.user, receiptDateArray : receiptDateArray, receiptSourceArray : receiptSourceArray, receiptDescriptionArray : receiptDescriptionArray, receiptAmountArray : receiptAmountArray, receiptIdArray : receiptIdArray});
 	});
 
@@ -476,7 +474,7 @@ function updateReceipt() {
 	app.get('/myprofile', isLoggedIn, function(req, res) {
 		res.render('myprofile.ejs', {user : req.user});
 	})
-	app.get('/gamestats', updateAdminAndRoster, function(req, res) {
+	app.get('/gamestats', function(req, res) {
 		res.render('gamestats.ejs', {user : req.user, gameDateArray : gameDateArray, gameOpponentArray : gameOpponentArray, gameResultArray : gameResultArray, gameFullStatsArray : gameFullStatsArray, gameStatsIdArray : gameStatsIdArray});
 	});
 	app.post('/updateAttendance', function(req, res) {

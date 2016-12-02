@@ -17,14 +17,14 @@
 
 			<div class="well">
 					<p>
-						<% if(user.userInfo.defaultPic == 0) { %>
+						<% if(userProfile['userInfo']['defaultPic'] == 0) { %>
             			<div class="userprofile">
             			<img src="nouser.jpg" alt="Profile Picture" width="30%" height="30%"><br>
             			<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
             			</div>
             			<% } else { %>
             			<div class="userprofile">
-           				<img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="30%" height="30%"><br>
+           				<img src="<%= userProfile['userInfo']['firstName'] + userProfile['userInfo']['lastName']+'.png' %>" alt="Profile Picture" width="30%" height="30%"><br>
             			<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
             			</div>
             			<% } %>
