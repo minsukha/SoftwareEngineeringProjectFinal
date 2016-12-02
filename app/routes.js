@@ -426,10 +426,7 @@ function updateReceipt() {
 		var currentdate = new Date(); 
 		var datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
+                + currentdate.getFullYear();
         var name = req.user.userInfo.firstName + " " + req.user.userInfo.lastName;
 		newAnnouncement.announcement.message = req.body.announcement;
 		newAnnouncement.announcement.name = name;
