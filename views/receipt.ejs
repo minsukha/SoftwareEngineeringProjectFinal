@@ -1,0 +1,73 @@
+<% var title = 'Receipt' %>
+<% var name = "" %>
+<% if(!user) { %>
+<% include header %>
+<% } else { %>
+<% var privilege = user.userInfo.privilege %>
+<% name = user.userInfo.firstName  + " " + user.userInfo.lastName %>
+<% include header %>
+<% } %>
+<center><div class="ui threaded comments">
+	<h1 class="ui dividing header">Receipts</h1>
+	<table class="table-hover">
+		<th>Receipt #</th>
+		<th>Date</th>
+		<th>Source</th>
+		<th>Description</th>
+		<th>Amount</th>
+		<th>Delete Receipt </th>
+		<% for(var i=0; i < receiptDateArray.length; i++) { %>
+		<tr>
+			<td><%= i+1 %></td>
+			<td><%= receiptDateArray[i] %></td>
+			<td><%= receiptSourceArray[i] %></td>
+			<td><%= receiptDescriptionArray[i] %></td>
+			<td>$<%= receiptAmountArray[i] %></td>
+			<td><form action="/deleteReceipt" method="post"><input type="text" id="receiptId" name="receiptId" value="<%= receiptIdArray[i] %>" hidden><a id="<%= i %>" href="#" onclick="document.forms[this.id].submit();return false;">Delete</a></form></td>
+		</tr>
+		<% } %>
+	</table>
+	<br></br>
+	<center><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Receipt</button></center>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Receipt</h4>
+				</div>
+				<form action="/updateReceipt" method="post">
+					<div class="form-group">
+						<label for="receiptDate">Date of Purchase</label>
+						<input type="date" class="form-control" id="receiptDate" name="receiptDate">
+					</div>
+					<div class="form-group">
+						<label for="receiptSource">Purchase Location</label>
+						<input type="text" class="form-control" id="receiptSource" name="receiptSource" placeholder="Store purchase was made at.">
+					</div>
+					<div class="form-group">
+						<label for="receiptDescription">Description</label>
+						<input type="text" class="form-control" id="receiptDescription" name="receiptDescription" placeholder="What was purchase for?">
+					</div>
+					<div class="form-group">
+						<label for="receiptAmount">Amount</label>
+						<input type="text" class="form-control" id="receiptAmount" name="receiptAmount" placeholder="Total amount of purchase.">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -46,13 +46,13 @@ li{
 }
 
 .headertest{
-	padding: 5px;
+	padding: 0px;
 	background-color: #003366;
 	border-bottom: 7px solid #006633;
 }
 
 .container{
-	width: 75%;
+	width: 60%;
 }
 
 .row{
@@ -81,7 +81,7 @@ li{
 
 .headertest > .ui.secondary.menu > a.item{
 	color: white;
-	font-size: 125%;
+	font-size: 100%;
 }
 
 .headertest > .ui.secondary.menu > a.item:hover{

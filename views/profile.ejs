@@ -8,14 +8,6 @@
 <% include header %>
 <% } %>
 <% if(!user) { %>
-<script type="text/javascript">
-	window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
-}
-</script>
 <center><div class="ui threaded comments">
 <h1 class="ui dividing header"></h1>
 <div class="container">
@@ -25,17 +17,17 @@
 
 			<div class="well">
 					<p>
-						<% try { %>
-						<div class="userprofile">
-						<img src="<%= userProfile['userInfo']['firstName'] + userProfile['userInfo']['lastName']+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
-						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
-						</div>
-						<% } catch(err) { %>
-						<div class="userprofile">
-						<img src="nouser.jgp" alt="Profile Picture" width="50%" height="50%"><br>
-						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
-						</div>
-						<% } %>
+						<% if(user.userInfo.defaultPic == 0) { %>
+            			<div class="userprofile">
+            			<img src="nouser.jpg" alt="Profile Picture" width="30%" height="30%"><br>
+            			<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+            			</div>
+            			<% } else { %>
+            			<div class="userprofile">
+           				<img src="<%= user.userInfo.firstName + user.userInfo.lastName+'.png' %>" alt="Profile Picture" width="30%" height="30%"><br>
+            			<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+            			</div>
+            			<% } %>
                         <strong>Age</strong>: <%= userProfile['userInfo']['age'] %><br>
                         <strong>Jersey Number</strong>: <%= userProfile['userInfo']['jerseyNumber'] %><br>
                         <strong>Position</strong>: <%= userProfile['userInfo']['position'] %><br>

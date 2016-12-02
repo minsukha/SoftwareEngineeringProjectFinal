@@ -81,8 +81,8 @@
             <a class="ui item" href="/files">
                 Files
             </a>
-            <a class="ui item" href="/playbook">
-                Playbook
+            <a class="ui item" href="/receipt">
+                Receipt
             </a>
             <a class="ui item" href="/Admin">
                 Admin
@@ -159,7 +159,7 @@
 </body>
 </html>
 
-<% } else { %>
+<% } else if(privilege === "Officer") { %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,8 +190,61 @@
             <a class="ui item" href="/files">
                 Files
             </a>
-            <a class="ui item" href="/playbook">
-                Playbook
+            <a class="ui item" href="/receipt">
+                Receipt
+            </a>
+            <a class="ui item" href="/myprofile">
+                <%= name %>
+            </a>
+            <a class="ui item" href="/logout">
+                Log out
+            </a>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="social-media">
+        <ul>
+            <li><a href="https://ncrha.org/team.php?team_id=53546" target="_blank"><img src="ncrhalogo.png" height="33" width="33" alt="NCRHA Profile"></a></li> 
+            <li><a href="https://www.facebook.com/GeorgiaCollegeRollerHockey" target="_blank"><img src="facebooklogo.png" height="33" width="33" alt="Facebook"></a></li>
+            <li><a href="https://www.instagram.com/georgiacollegehockey/" target="_blank"><img src="instagramlogo.png" height="33" width="33" alt="Instagram"></a></li>
+            <li><a href="https://twitter.com/GCRollerHockey" target="_blank" ><img src="twitterlogo.png" height="33" width="33" alt="Twitter"></a></li>  
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
+
+<% } else { %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+<script src="/js/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="headertest">
+    <div class="ui secondary  menu">
+        <a href="/"><img src="gcsulogo.png" alt="GCSU Logo"></a>
+        <div class="right menu">
+            <a class="ui item" href="/">
+                Home
+            </a>
+            <a class="ui item" href="/roster">
+                Roster
+            </a>
+            <a class="ui item" href="/gamestats">
+                Game Stats
+            </a>
+            <a class="ui item" href="/files">
+                Files
             </a>
             <a class="ui item" href="/myprofile">
                 <%= name %>

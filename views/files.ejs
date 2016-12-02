@@ -23,7 +23,7 @@
 		<% for(var i =0; i< files.length; i++) { %>
 		<tr>
 		<td><a href="/files/<%= files[i] %>"><%= files[i] %></a></td>
-		<td><form action="/deleteFile" method="post"><input type="text" id="delete" name="delete" value="<%= files[i] %>" hidden><a id="<%= i+1 %>" href="#" onclick="document.forms[this.id].submit();return false;">Delete</a></form></td>
+		<td><a href="/delete/<%= files[i] %>">Delete</a></td>
 		</tr>
 		<% } %>
 		</table>

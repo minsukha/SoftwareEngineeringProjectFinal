@@ -8,6 +8,8 @@ module.exports = function(app, passport) {
 
 	var GameStats = require('../app/models/gamestats');
 
+	var Receipt = require('../app/models/receipt');
+
 	var fs = require('fs');
 
 	//load the home screen and send user data to it
@@ -34,6 +36,13 @@ module.exports = function(app, passport) {
 	var gameOpponentArray = [];
 	var gameResultArray = [];
 	var gameStatsIdArray = [];
+
+	//variables for the receipt tracker
+	var receiptDateArray = [];
+	var receiptSourceArray = [];
+	var receiptDescriptionArray = [];
+	var receiptAmountArray = [];
+	var receiptIdArray = [];
 	//user id and user object for roster page
 	var userId;
 	var userProfile;
@@ -157,7 +166,75 @@ function updateGameStats() {
 		});
 
 	}
+function updateReceipt() {
+		Receipt.find().lean().exec(function(err, receipt) {
+			if(err)
+				throw err;
+			else {
+				if(receiptDateArray.length === 0)
+				{
+					for(var i = 0; i<receipt.length; i++) {
+						var date = receipt[i]['receipt']['date'];
+						var source = receipt[i]['receipt']['source'];
+						var description = receipt[i]['receipt']['result'];
+						var amount = receipt[i]['receipt']['receipt'];
+						var id = receipt[i]['_id'];
+						receiptDateArray.push(date);
+						receiptSourceArray.push(source);
+						receiptDescriptionArray.push(description);
+						receiptAmountArray.push(amount);
+						receiptIdArray.push(id);
+					}
+				}
+				else if(gameDateArray.length === gameStats.length) {
+					for(var i = 0; i<gameStats.length; i++) {
+						var date = receipt[i]['receipt']['date'];
+						var source = receipt[i]['receipt']['source'];
+						var description = receipt[i]['receipt']['result'];
+						var amount = receipt[i]['receipt']['receipt'];
+						var id = receipt[i]['_id'];
+						receiptDateArray.push(date);
+						receiptSourceArray.push(source);
+						receiptDescriptionArray.push(description);
+						receiptAmountArray.push(amount);
+						receiptIdArray.push(id);
+					}
+				}
+				else if(gameDateArray.length > gameStats.length) {
+					for(var i = 0; i<gameStats.length; i++) {
+						var date = receipt[i]['receipt']['date'];
+						var source = receipt[i]['receipt']['source'];
+						var description = receipt[i]['receipt']['result'];
+						var amount = receipt[i]['receipt']['receipt'];
+						var id = receipt[i]['_id'];
+						receiptDateArray.push(date);
+						receiptSourceArray.push(source);
+						receiptDescriptionArray.push(description);
+						receiptAmountArray.push(amount);
+						receiptIdArray.push(id);
+					}
+					receiptDateArray.pop();
+					receiptSourceArray.pop();
+					receiptDescriptionArray.pop();
+					receiptAmountArray.pop();
+					receiptIdArray.pop();
+				}
+				else {
+					var date = receipt[receipt.length - 1]['receipt']['date'];
+					var source = receipt[receipt.length - 1]['receipt']['source'];
+					var description = receipt[receipt.length - 1]['receipt']['description'];
+					var fullStats = receipt[receipt.length - 1]['receipt']['amount'];
+					var id = receipt[receipt.length - 1]['_id'];
+					receiptDateArray.push(date);
+					receiptSourceArray.push(source);
+					receiptDescriptionArray.push(description);
+					receiptAmountArray.push(amount);
+					receiptIdArray.push(id);
+				}
+			}
+		});
 
+	}
 	//function to find all members in the database and convert it so it can be stored in a javascript variable
 	function updateRoster(){
 		User.find().lean().exec(function(err, members){
@@ -283,6 +360,8 @@ function updateGameStats() {
 	function updateAdminAndRoster(req, res, next) {
 		updateAdminTable();
 		updateRoster();
+		updateGameStats();
+		updateReceipt();
 		return next();
 	};
 	//get latest announcement from the database and set it to the variables for the index page
@@ -306,6 +385,18 @@ function updateGameStats() {
 		}
 	};
 	//function to check if the user is an admin. If they are not it redirects them to the home page
+	function isOfficer(req, res, next) {
+		if(!req.user) {
+			res.redirect('/login');
+		}
+		else if(req.user.userInfo.privilege == "Officer" || req.user.userInfo.privilege == "Admin") {
+			return next();
+		}
+		else {
+			res.redirect('/');
+		}
+	}
+
 	function isAdmin(req, res, next) {
 		if(!req.user) {
 			res.redirect('/login');
@@ -328,8 +419,8 @@ function updateGameStats() {
 	app.get('/files', isLoggedIn, getFiles, function(req, res) {
 		res.render('files.ejs', {user : req.user, files : filez});
 	});
-	app.get('/playbook', isLoggedIn, getPlays, function(req, res) {
-		res.render('playbook.ejs', {user : req.user, playFiles : playFiles});
+	app.get('/receipt', isOfficer, updateAdminAndRoster, function(req, res) {
+		res.render('receipt.ejs', {user : req.user, receiptDateArray : receiptDateArray, receiptSourceArray : receiptSourceArray, receiptDescriptionArray : receiptDescriptionArray, receiptAmountArray : receiptAmountArray, receiptIdArray : receiptIdArray});
 	});
 
 	app.post('/updateAnnouncement', function(req, res){
@@ -385,7 +476,7 @@ function updateGameStats() {
 	app.get('/myprofile', isLoggedIn, function(req, res) {
 		res.render('myprofile.ejs', {user : req.user});
 	})
-	app.get('/gamestats', function(req, res) {
+	app.get('/gamestats', updateAdminAndRoster, function(req, res) {
 		res.render('gamestats.ejs', {user : req.user, gameDateArray : gameDateArray, gameOpponentArray : gameOpponentArray, gameResultArray : gameResultArray, gameFullStatsArray : gameFullStatsArray, gameStatsIdArray : gameStatsIdArray});
 	});
 	app.post('/updateAttendance', function(req, res) {
@@ -445,6 +536,31 @@ function updateGameStats() {
 		});
 		res.redirect('/gamestats');
 	});
+
+	app.post('/updateReceipt', function(req, res) {
+		var newReceipt = new Receipt();
+		newReceipt.receipt.date = req.body.receiptDate;
+		newReceipt.receipt.opponent = req.body.receiptSource;
+		newReceipt.receipt.result = req.body.receiptDescription;
+		newReceipt.receipt.fullStats = req.body.receiptAmount;
+
+		newReceipt.save(function(err){
+			if(err)
+				throw err;
+			updateReceipt();
+		});
+		res.redirect('/receipt');
+	});
+
+	app.post('/deleteReceipt', function(req, res){
+		Receipt.remove({'_id':req.body.receiptId}, function(err){
+			if(err)
+				throw err;
+		});
+		updateReceipt();
+		res.redirect('/receipt');
+	});
+
 	//update the user info in the database from the form on the user page
 	app.post('/updateProfile', function(req, res) {
 		User.findOne({'_id':req.user._id}, function(err, user) {
@@ -537,8 +653,10 @@ function updateGameStats() {
 	});
 
 	/*
-	app.post('/deleteFile', function(req, res){
-		fs.unlinkSync('./public/files/'+req.body.delete);
+	app.get('/delete/:file(*)', function(req, res, next){
+		var file = req.params.file;
+		var path = 'public/files/' + file;
+		fs.unlinkSync(path);
 		res.redirect('/files');
 	});
 	*/
