@@ -223,7 +223,7 @@ function updateReceipt() {
 					var date = receipt[receipt.length - 1]['receipt']['date'];
 					var source = receipt[receipt.length - 1]['receipt']['source'];
 					var description = receipt[receipt.length - 1]['receipt']['description'];
-					var fullStats = receipt[receipt.length - 1]['receipt']['amount'];
+					var amount = receipt[receipt.length - 1]['receipt']['amount'];
 					var id = receipt[receipt.length - 1]['_id'];
 					receiptDateArray.push(date);
 					receiptSourceArray.push(source);

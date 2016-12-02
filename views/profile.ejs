@@ -55,10 +55,17 @@
 
 			<div class="well">
 					<p>
-						<div class="userprofile">
-						<img src="<%= userProfile['userInfo']['firstName'] + userProfile['userInfo']['lastName']+'.png' %>" alt="Profile Picture" width="50%" height="50%"><br>
-						<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
-						</div>
+						<% if(userProfile['userInfo']['defaultPic'] == 0) { %>
+            			<div class="userprofile">
+            			<img src="nouser.jpg" alt="Profile Picture" width="30%" height="30%"><br>
+            			<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+            			</div>
+            			<% } else { %>
+            			<div class="userprofile">
+           				<img src="<%= userProfile['userInfo']['firstName'] + userProfile['userInfo']['lastName']+'.png' %>" alt="Profile Picture" width="30%" height="30%"><br>
+            			<p><h2><strong><center><%= userProfile['userInfo']['firstName'] + " " + userProfile['userInfo']['lastName'] %></center></strong></h2></p>
+            			</div>
+            			<% } %>
 						<strong>Phone Number</strong>: <%= userProfile['userInfo']['phoneNumber'] %><br>
 						<strong>Email</strong>: <%= userProfile['userInfo']['email'] %><br>
                         <strong>Age</strong>: <%= userProfile['userInfo']['age'] %><br>
