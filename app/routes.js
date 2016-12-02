@@ -176,8 +176,8 @@ function updateReceipt() {
 					for(var i = 0; i<receipt.length; i++) {
 						var date = receipt[i]['receipt']['date'];
 						var source = receipt[i]['receipt']['source'];
-						var description = receipt[i]['receipt']['result'];
-						var amount = receipt[i]['receipt']['receipt'];
+						var description = receipt[i]['receipt']['description'];
+						var amount = receipt[i]['receipt']['amount'];
 						var id = receipt[i]['_id'];
 						receiptDateArray.push(date);
 						receiptSourceArray.push(source);
@@ -187,11 +187,11 @@ function updateReceipt() {
 					}
 				}
 				else if(receiptDateArray.length === receipt.length) {
-					for(var i = 0; i<gameStats.length; i++) {
+					for(var i = 0; i<receipt.length; i++) {
 						var date = receipt[i]['receipt']['date'];
 						var source = receipt[i]['receipt']['source'];
-						var description = receipt[i]['receipt']['result'];
-						var amount = receipt[i]['receipt']['receipt'];
+						var description = receipt[i]['receipt']['description'];
+						var amount = receipt[i]['receipt']['amount'];
 						var id = receipt[i]['_id'];
 						receiptDateArray.push(date);
 						receiptSourceArray.push(source);
@@ -201,17 +201,17 @@ function updateReceipt() {
 					}
 				}
 				else if(receiptDateArray.length > receipt.length) {
-					for(var i = 0; i<gameStats.length; i++) {
+					for(var i = 0; i<receipt.length; i++) {
 						var date = receipt[i]['receipt']['date'];
 						var source = receipt[i]['receipt']['source'];
-						var description = receipt[i]['receipt']['result'];
-						var amount = receipt[i]['receipt']['receipt'];
+						var description = receipt[i]['receipt']['description'];
+						var amount = receipt[i]['receipt']['amount'];
 						var id = receipt[i]['_id'];
-						receiptDateArray.push(date);
-						receiptSourceArray.push(source);
-						receiptDescriptionArray.push(description);
-						receiptAmountArray.push(amount);
-						receiptIdArray.push(id);
+						receiptDateArray[i] = date;
+						receiptSourceArray[i] = source;
+						receiptDescriptionArray[i] = description;
+						receiptAmountArray[i] = amount;
+						receiptIdArray[i] = id;
 					}
 					receiptDateArray.pop();
 					receiptSourceArray.pop();
@@ -538,9 +538,9 @@ function updateReceipt() {
 	app.post('/updateReceipt', function(req, res) {
 		var newReceipt = new Receipt();
 		newReceipt.receipt.date = req.body.receiptDate;
-		newReceipt.receipt.opponent = req.body.receiptSource;
-		newReceipt.receipt.result = req.body.receiptDescription;
-		newReceipt.receipt.fullStats = req.body.receiptAmount;
+		newReceipt.receipt.source = req.body.receiptSource;
+		newReceipt.receipt.description = req.body.receiptDescription;
+		newReceipt.receipt.amount = req.body.receiptAmount;
 
 		newReceipt.save(function(err){
 			if(err)

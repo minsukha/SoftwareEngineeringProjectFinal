@@ -5,8 +5,8 @@ var receiptSchema = mongoose.Schema({
     receipt       : {
         date        : String,
         source	    : String,
-        description		: String,
-        amount	: String
+        description	: String,
+        amount		: String
     }
 });
 
